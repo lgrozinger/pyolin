@@ -19,7 +19,7 @@ class TestUCF(unittest.TestCase):
         self.assertTrue(isinstance(u, list))
 
     def test_collection(self):
-        u = ucf.from_ucf(self.wd + "/../ucf/Eco1C1G1T0.UCF.json")
+        u = ucf.UCF(self.wd + "/../ucf/Eco1C1G1T0.UCF.json")
         expected = {"collection": "gates",
                     "regulator": "AmtR",
                     "group_name": "AmtR",
@@ -27,19 +27,36 @@ class TestUCF(unittest.TestCase):
                     "gate_type": "NOR",
                     "system": "TetR",
                     "color_hexcode": "3BA9E0"}
-        actually = ucf.collections(u, "gates")
+        actually = u.collections("gates")
         self.assertTrue(expected in actually)
 
     def test_params(self):
-        u = ucf.from_ucf(self.wd + "/../ucf/Eco1C1G1T0.UCF.json")
+        u = ucf.UCF(self.wd + "/../ucf/Eco1C1G1T0.UCF.json")
         expected = {"ymax" : 3.8,
                     "ymin" : 0.06,
                     "K" : 0.07,
                     "n" : 1.6}
-        actually = ucf.params(u, "A1_AmtR")
+        actually = u["A1_AmtR"].params
+
+    def test_gate_xs(self):
+        u = ucf.UCF(self.wd + "/../ucf/Eco1C1G1T0.UCF.json")
+        expected = [0.004843,
+                    0.007426,
+                    0.01253,
+                    0.034109,
+                    0.0627,
+                    0.099936,
+                    0.144093,
+                    0.247036,
+                    0.418091,
+                    0.739476,
+                    1.012582,
+                    2.07846]
+        actually = u["A1_AmtR"].xs
+        self.assertEqual(expected, actually)
 
     def test_gate_medians(self):
-        u = ucf.from_ucf(self.wd + "/../ucf/Eco1C1G1T0.UCF.json")
+        u = ucf.UCF(self.wd + "/../ucf/Eco1C1G1T0.UCF.json")
         expected = [13.645628355810723,
                     12.318076465819308,
                     11.03620158545664,
@@ -52,5 +69,5 @@ class TestUCF(unittest.TestCase):
                     0.5655925258268966,
                     0.44545795702228386,
                     0.32071011716003545]
-        actually = ucf.gate_medians(u, "A1_AmtR")
+        actually = u["A1_AmtR"].ys
         self.assertEqual(expected, actually)

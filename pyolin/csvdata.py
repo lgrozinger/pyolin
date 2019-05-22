@@ -8,13 +8,6 @@ class CSVMedians:
         self._x = xaxis
         self._y = yaxis
 
-    def plotgate(self, gatename):
-        figure, axes = plt.subplots()
-        axes.set_xlabel(xaxis)
-        axes.set_ylabel(yaxis)
-        axes.set_title(gatename)
-        return plt.show(plt.plot(self.xs, self[gatename]))
-
     def __getitem__(self, key):
         if not isinstance(key, str):
             raise TypeError("Provide gate name as a string.")
@@ -35,10 +28,6 @@ class CSVMedians:
     def reader(self):
         self._stream.seek(0)
         return csv.reader(self._stream, delimiter=',', quotechar='"')
-
-    @property
-    def filename(self):
-        return self._filename
 
     @property
     def names(self):
