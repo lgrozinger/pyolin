@@ -5,3 +5,5 @@
 !README*
 !LICENSE
 !requirements.txt
+!Dockerfile
+!**/**/*.sh
