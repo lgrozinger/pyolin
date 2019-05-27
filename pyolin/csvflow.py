@@ -1,28 +1,103 @@
 import numpy
 import csv
 import pathlib
+import re
+
+import utils
 
 gate_prefixes = {"af" : "1201",
-                 "standard" : "1717"}
+                 "standard" : "1717",
+                 "input" : "1818",
+                 "A1_AmtR" : "A1_AmtR"}
 
 def csv_paths(name, xs=None):
     ucf_dir = pathlib.Path(__file__).resolve().parent.parent / "ucf"
     prefix = gate_prefixes[name]
     if xs is None:
-        return ucf_dir.glob(prefix + "_*.csv")
+        paths = ucf_dir.glob(prefix + "_*.csv")
+        return [(x_from_path(p), p) for p in paths]
     else:
-        return map(lambda x: csv_path(name, x), xs)
+        return list(map(lambda x: (x, csv_path(name, x)), xs))
 
 def csv_path(name, x):
     ucf_dir = pathlib.Path(__file__).resolve().parent.parent / "ucf"
     prefix = gate_prefixes[name]
-    return list(ucf_dir.glob(prefix + "_" + str(x) + "_*.csv"))[0]
+    return (x, list(ucf_dir.glob(prefix + "_" + str(x) + "_*.csv"))[0])
 
-def median(path, column="B1-A :: GFP-A"):
+def x_from_path(path):
+    filename = path.name
+    regex_match = re.match(r"(.*_)(\d+)(.*\.csv)", filename)
+    return int(regex_match.group(2))
+
+def input_rpu():
+    data = csv_paths(gate_prefixes["input"])
+    channel = [csv_channel(p, channel=channel) for _, p in data]
+    channel = numpy.concatenate(*channel)
+
+def median_af(channel="B1-A :: GFP-A"):
+    data = csv_paths(gate_prefixes["af"])
+    channel = [csv_channel(p, channel=channel) for _, p in data]
+    channel = numpy.concatenate(*channel)
+    return numpy.median(channel)
+
+def median_standard(channel="B1-A :: GFP-A"):
+    data = csv_paths(gate_prefixes["standard"])
+    channel = [csv_channel(p, channel=channel) for _, p in data]
+    channel = numpy.concatenate(*channel)
+    return numpy.median(channel)
+
+def csv_channel(path, channel="B1-A :: GFP-A"):
     with path.open() as f:
         reader = csv.reader(f, delimiter=',', quotechar='"')
         cols = next(reader)
-        col_index = cols.index(column)
+        col_index = cols.index(channel)
         channel_data = list(map(lambda r: float(r[col_index]), reader))
-        channel_data = numpy.array(channel_data)
+        return numpy.array(channel_data)
+
+def median(path, channel="B1-A :: GFP-A"):
+        channel_data = csv_channel(path, channel=channel)
         return numpy.median(channel_data)
+
+def rpu_median(path, channel="B1-A :: GFP-A"):
+        channel_data = csv_channel(path, channel=channel)
+        af = af_median()
+        st = standard_median()
+        au = numpy.median(channel_data)
+
+        return utils.au_to_rpu(au, af, st)
+
+def au_histogram(path,
+              channel="B1-A :: GFP-A",
+              num_bins=250,
+              bin_min=None,
+              bin_max=None):
+
+        channel_data = csv_channel(path, channel=channel)
+        if bin_min is None:
+            bin_min = min(channel_data)
+        if bin_max is None:
+            bin_max = max(channel_data)
+
+        bins = numpy.logspace(bin_min, bin_max, num=num_bins)
+        return numpy.histogram(channel_data, bins=bins, density=True)
+
+def rpu_histogram(path,
+              channel="B1-A :: GFP-A",
+              num_bins=250,
+              bin_min=None,
+              bin_max=None):
+
+        channel_data = csv_channel(path, channel=channel)
+        af = af_median()
+        st = standard_median()
+        au = numpy.median(channel_data)
+        constant = utils.c(au, af, st)
+        channel_data = channel_data * constant
+
+        if bin_min is None:
+            bin_min = min(channel_data)
+        if bin_max is None:
+            bin_max = max(channel_data)
+
+        bins = numpy.logspace(bin_min, bin_max, num=num_bins)
+        return numpy.histogram(channel_data, bins=bins, density=True)

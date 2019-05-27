@@ -1,6 +1,7 @@
 import numpy
 import matplotlib.pyplot as plt
 
+import csvflow
 from .csvdata import CSVMedians
 import pyolin.utils as utils
 
@@ -19,6 +20,24 @@ class Gate:
             ys = data[gate_name]
             return cls(gate_name, xs, ys)
 
+    @classmethod
+    def from_csvflow(cls, gate_name):
+        files = csvflow.csv_paths(gate_name)
+        files.sort(key=lambda pair : pair[0])
+        xs = [x for x, _  in files]
+        ys = [utils.au_to_rpu(csvflow.median(path)) for _, path in files]
+        gate = cls(gate_name, xs, ys)
+        gate.histograms = [csvflow.rpu_histogram(p, bin_min=0.001, bin_max=946.2371)]
+        return gate
+
+    @property
+    def dynamic_output_range(self):
+        return max(self.ys) / min(self.ys)
+
+    @property
+    def dynamic_input_range(self):
+        return max(self.xs) / min(self.xs)
+
     @property
     def name(self):
         return self._name
@@ -32,7 +51,9 @@ class Gate:
 
     @property
     def hill_function(self):
-        return utils.hill_lambda(*list(self.params.values()))
+        params = ["ymin", "ymax", "K", "n"]
+        params = [self.params[p] for p in params]
+        return utils.hill_lambda(*params)
 
     @property
     def plot(self):
@@ -40,7 +61,11 @@ class Gate:
         # axes.set_xlabel(xaxis)
         # axes.set_ylabel(yaxis)
         axes.set_title(self.name)
+        axes.set_yscale("log")
+        axes.set_xscale("log")
         axes.scatter(self.xs, self.ys)
         hs = list(map(self.hill_function, self.xs))
         axes.plot(self.xs, hs)
         return figure
+
+    @propert
