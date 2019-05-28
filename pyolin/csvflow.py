@@ -3,7 +3,7 @@ import csv
 import pathlib
 import re
 
-import utils
+import pyolin.utils as utils
 
 gate_prefixes = {"af" : "1201",
                  "standard" : "1717",
@@ -30,20 +30,20 @@ def x_from_path(path):
     return int(regex_match.group(2))
 
 def input_rpu():
-    data = csv_paths(gate_prefixes["input"])
+    data = csv_paths("input")
     channel = [csv_channel(p, channel=channel) for _, p in data]
-    channel = numpy.concatenate(*channel)
+    channel = numpy.concatenate(channel)
 
 def median_af(channel="B1-A :: GFP-A"):
-    data = csv_paths(gate_prefixes["af"])
+    data = csv_paths("af")
     channel = [csv_channel(p, channel=channel) for _, p in data]
-    channel = numpy.concatenate(*channel)
+    channel = numpy.concatenate(channel)
     return numpy.median(channel)
 
 def median_standard(channel="B1-A :: GFP-A"):
-    data = csv_paths(gate_prefixes["standard"])
+    data = csv_paths("standard")
     channel = [csv_channel(p, channel=channel) for _, p in data]
-    channel = numpy.concatenate(*channel)
+    channel = numpy.concatenate(channel)
     return numpy.median(channel)
 
 def csv_channel(path, channel="B1-A :: GFP-A"):
@@ -60,8 +60,8 @@ def median(path, channel="B1-A :: GFP-A"):
 
 def rpu_median(path, channel="B1-A :: GFP-A"):
         channel_data = csv_channel(path, channel=channel)
-        af = af_median()
-        st = standard_median()
+        af = median_af()
+        st = median_standard()
         au = numpy.median(channel_data)
 
         return utils.au_to_rpu(au, af, st)
@@ -88,8 +88,8 @@ def rpu_histogram(path,
               bin_max=None):
 
         channel_data = csv_channel(path, channel=channel)
-        af = af_median()
-        st = standard_median()
+        af = median_af()
+        st = median_standard()
         au = numpy.median(channel_data)
         constant = utils.c(au, af, st)
         channel_data = channel_data * constant

@@ -1,8 +1,8 @@
 import numpy
 import matplotlib.pyplot as plt
 
-import csvflow
-from .csvdata import CSVMedians
+import pyolin.csvflow as csvflow
+from pyolin.csvdata import CSVMedians
 import pyolin.utils as utils
 
 class Gate:
@@ -25,10 +25,20 @@ class Gate:
         files = csvflow.csv_paths(gate_name)
         files.sort(key=lambda pair : pair[0])
         xs = [x for x, _  in files]
-        ys = [utils.au_to_rpu(csvflow.median(path)) for _, path in files]
+        af = csvflow.median_af()
+        st = csvflow.median_standard()
+        def rpu(path):
+            median = csvflow.median(path)
+            return utils.au_to_rpu(median, af, st)
+
+        ys = [rpu(path) for _, path in files]
         gate = cls(gate_name, xs, ys)
-        gate.histograms = [csvflow.rpu_histogram(p, bin_min=0.001, bin_max=946.2371)]
+        gate.histograms = [csvflow.rpu_histogram(p, bin_min=0.001, bin_max=946.2371) for _, p in files]
         return gate
+
+    @property
+    def from_gates(cls, input_gate, output_gate):
+        return cls(output_gate.name, input_gate.ys, output_gate.ys)
 
     @property
     def dynamic_output_range(self):
@@ -68,4 +78,12 @@ class Gate:
         axes.plot(self.xs, hs)
         return figure
 
-    @propert
+    def histogram(self, x_index):
+        figure, axes = plt.subplots()
+        # axes.set_xlabel(xaxis)
+        # axes.set_ylabel(yaxis)
+        axes.set_title(self.name)
+        axes.set_xscale("log")
+        bins, xs = self.histograms[x]
+        axes.hist(xs, bins=bins)
+        return figure
