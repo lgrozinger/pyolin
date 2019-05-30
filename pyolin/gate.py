@@ -1,9 +1,12 @@
 import numpy
+import scipy.optimize as optim
 import matplotlib.pyplot as plt
 
 import pyolin.csvflow as csvflow
 from pyolin.csvdata import CSVMedians
 import pyolin.utils as utils
+
+from math import log10 as log
 
 class Gate:
 
@@ -33,8 +36,17 @@ class Gate:
 
         ys = [rpu(path) for _, path in files]
         gate = cls(gate_name, xs, ys)
-        gate.histograms = [csvflow.rpu_histogram(p, bin_min=0.001, bin_max=946.2371) for _, p in files]
+        gate._histograms = [csvflow.rpu_histogram(p, bin_min=0.001, bin_max=946.2371) for _, p in files]
         return gate
+
+    @property
+    def thresholds(self):
+        return (self._upper_t, self._lower_t)
+
+    @thresholds.setter
+    def thresholds(self, v):
+        self._upper_t = v[0]
+        self._lower_t = v[1]
 
     @property
     def from_gates(cls, input_gate, output_gate):
@@ -54,10 +66,14 @@ class Gate:
 
     @property
     def params(self):
-        # Huseyin plug in fitting here please
-        # return fitted_parameters(self.xs, self.ys)
-        # should return dictionary of {param_name : param_value}
-        return {"ymin" : 0.01, "ymax" : 10.0, "K" : 0.3, "n" : 2.0}
+        ymin = min(self.ys)
+        ymax = max(self.ys)
+        loss = utils.residuals(self.xs, self.ys, ymin, ymax)
+        lb = numpy.array([0.0, 1.0])
+        ub = numpy.array([numpy.inf, numpy.inf])
+        initial = numpy.array([1.0, 2.0])
+        x = optim.least_squares(loss, initial, bounds=(lb, ub)).x
+        return {"ymin" : ymin, "ymax" : ymax, "K" : x[0], "n" : x[1]}
 
     @property
     def hill_function(self):
@@ -74,9 +90,14 @@ class Gate:
         axes.set_yscale("log")
         axes.set_xscale("log")
         axes.scatter(self.xs, self.ys)
-        hs = list(map(self.hill_function, self.xs))
-        axes.plot(self.xs, hs)
+        smooth_xs = numpy.logspace(log(min(self.xs)), log(max(self.xs)), 100)
+        hs = list(map(self.hill_function, smooth_xs))
+        axes.plot(smooth_xs, hs)
         return figure
+
+    @property
+    def histograms(self):
+        return [self.histogram(x) for x in self.xs]
 
     def histogram(self, x_index):
         figure, axes = plt.subplots()
@@ -84,6 +105,6 @@ class Gate:
         # axes.set_ylabel(yaxis)
         axes.set_title(self.name)
         axes.set_xscale("log")
-        bins, xs = self.histograms[x]
+        xs, bins = self._histograms[x_index]
         axes.hist(xs, bins=bins)
         return figure

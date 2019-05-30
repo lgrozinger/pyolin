@@ -2,27 +2,29 @@ import numpy
 import csv
 import pathlib
 import re
+from math import log10 as log
 
 import pyolin.utils as utils
 
 gate_prefixes = {"af" : "1201",
                  "standard" : "1717",
                  "input" : "1818",
+                 "pTac" : "1818",
                  "A1_AmtR" : "A1_AmtR"}
 
 def csv_paths(name, xs=None):
-    ucf_dir = pathlib.Path(__file__).resolve().parent.parent / "ucf"
+    data_dir = pathlib.Path(__file__).resolve().parent.parent / "data"
     prefix = gate_prefixes[name]
     if xs is None:
-        paths = ucf_dir.glob(prefix + "_*.csv")
+        paths = data_dir.glob(prefix + "_*.csv")
         return [(x_from_path(p), p) for p in paths]
     else:
         return list(map(lambda x: (x, csv_path(name, x)), xs))
 
 def csv_path(name, x):
-    ucf_dir = pathlib.Path(__file__).resolve().parent.parent / "ucf"
+    data_dir = pathlib.Path(__file__).resolve().parent.parent / "data"
     prefix = gate_prefixes[name]
-    return (x, list(ucf_dir.glob(prefix + "_" + str(x) + "_*.csv"))[0])
+    return (x, list(data_dir.glob(prefix + "_" + str(x) + "_*.csv"))[0])
 
 def x_from_path(path):
     filename = path.name
@@ -34,19 +36,19 @@ def input_rpu():
     channel = [csv_channel(p, channel=channel) for _, p in data]
     channel = numpy.concatenate(channel)
 
-def median_af(channel="B1-A :: GFP-A"):
+def median_af(channel="B1-A"):
     data = csv_paths("af")
     channel = [csv_channel(p, channel=channel) for _, p in data]
     channel = numpy.concatenate(channel)
     return numpy.median(channel)
 
-def median_standard(channel="B1-A :: GFP-A"):
+def median_standard(channel="B1-A"):
     data = csv_paths("standard")
     channel = [csv_channel(p, channel=channel) for _, p in data]
     channel = numpy.concatenate(channel)
     return numpy.median(channel)
 
-def csv_channel(path, channel="B1-A :: GFP-A"):
+def csv_channel(path, channel="B1-A"):
     with path.open() as f:
         reader = csv.reader(f, delimiter=',', quotechar='"')
         cols = next(reader)
@@ -54,11 +56,11 @@ def csv_channel(path, channel="B1-A :: GFP-A"):
         channel_data = list(map(lambda r: float(r[col_index]), reader))
         return numpy.array(channel_data)
 
-def median(path, channel="B1-A :: GFP-A"):
+def median(path, channel="B1-A"):
         channel_data = csv_channel(path, channel=channel)
         return numpy.median(channel_data)
 
-def rpu_median(path, channel="B1-A :: GFP-A"):
+def rpu_median(path, channel="B1-A"):
         channel_data = csv_channel(path, channel=channel)
         af = median_af()
         st = median_standard()
@@ -67,8 +69,8 @@ def rpu_median(path, channel="B1-A :: GFP-A"):
         return utils.au_to_rpu(au, af, st)
 
 def au_histogram(path,
-              channel="B1-A :: GFP-A",
-              num_bins=250,
+              channel="B1-A",
+              num_bins=100,
               bin_min=None,
               bin_max=None):
 
@@ -78,12 +80,12 @@ def au_histogram(path,
         if bin_max is None:
             bin_max = max(channel_data)
 
-        bins = numpy.logspace(bin_min, bin_max, num=num_bins)
+        bins = numpy.logspace(log(bin_min), log(bin_max), num=num_bins)
         return numpy.histogram(channel_data, bins=bins, density=True)
 
 def rpu_histogram(path,
-              channel="B1-A :: GFP-A",
-              num_bins=250,
+              channel="B1-A",
+              num_bins=100,
               bin_min=None,
               bin_max=None):
 
@@ -99,5 +101,5 @@ def rpu_histogram(path,
         if bin_max is None:
             bin_max = max(channel_data)
 
-        bins = numpy.logspace(bin_min, bin_max, num=num_bins)
+        bins = numpy.logspace(log(bin_min), log(bin_max), num=num_bins)
         return numpy.histogram(channel_data, bins=bins, density=True)
