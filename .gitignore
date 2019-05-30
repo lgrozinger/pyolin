@@ -2,8 +2,11 @@
 !.gitignore
 !*/
 !**/**/*.py
+!**/**/*.ipynb
+notebooks/.ipynb_checkpoints/*
 !README*
 !LICENSE
 !requirements.txt
 !Dockerfile
 !**/**/*.sh
+!data/gates2.csv
