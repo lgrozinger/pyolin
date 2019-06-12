@@ -5,12 +5,16 @@ import re
 from math import log10 as log
 
 import pyolin.utils as utils
+from pyolin.csvdata import CSVMedians
 
 gate_prefixes = {"af" : "1201",
                  "standard" : "1717",
                  "input" : "1818",
-                 "pTac" : "1818",
-                 "A1_AmtR" : "A1_AmtR"}
+                 "pTac" : "1818"}
+
+with open("../data/gates.csv") as f:
+    for name in CSVMedians(f).names:
+        gate_prefixes[name] = name
 
 def csv_paths(name, xs=None):
     data_dir = pathlib.Path(__file__).resolve().parent.parent / "data"

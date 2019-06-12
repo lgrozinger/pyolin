@@ -7,6 +7,7 @@ from pyolin.csvdata import CSVMedians
 import pyolin.utils as utils
 
 from math import log10 as log
+from math import isnan
 
 class Gate:
 
@@ -14,6 +15,9 @@ class Gate:
         self.xs = xs
         self.ys = ys
         self._name = name
+        self._params = None
+        self._upper_t = 2
+        self._lower_t = 2
 
     @classmethod
     def from_csv(cls, filename, gate_name):
@@ -38,6 +42,32 @@ class Gate:
         gate = cls(gate_name, xs, ys)
         gate._histograms = [csvflow.rpu_histogram(p, bin_min=0.001, bin_max=946.2371) for _, p in files]
         return gate
+
+    @property
+    def il(self):
+        n = self.params["n"]
+        k = self.params["K"]
+        t = self.thresholds[0]
+        ymin = self.params["ymin"]
+        ymax = self.params["ymax"]
+        return ((k**n * ymax * (t - 1)) / (ymax - t * ymin))**(1 / n)
+
+    @property
+    def ol(self):
+        return self.params["ymin"] * self.thresholds[1]
+
+    @property
+    def ih(self):
+        n = self.params["n"]
+        k = self.params["K"]
+        t = self.thresholds[1]
+        ymin = self.params["ymin"]
+        ymax = self.params["ymax"]
+        return (k**n * (ymax - t * ymin) / (t * ymin - ymin))**(1 / n)
+
+    @property
+    def oh(self):
+        return self.params["ymax"] / self.thresholds[0]
 
     @property
     def thresholds(self):
@@ -66,14 +96,17 @@ class Gate:
 
     @property
     def params(self):
-        ymin = min(self.ys)
-        ymax = max(self.ys)
-        loss = utils.residuals(self.xs, self.ys, ymin, ymax)
-        lb = numpy.array([0.0, 1.0])
-        ub = numpy.array([numpy.inf, numpy.inf])
-        initial = numpy.array([1.0, 2.0])
-        x = optim.least_squares(loss, initial, bounds=(lb, ub)).x
-        return {"ymin" : ymin, "ymax" : ymax, "K" : x[0], "n" : x[1]}
+        if self._params is None:
+            ymin = min(self.ys)
+            ymax = max(self.ys)
+            loss = utils.residuals(self.xs, self.ys, ymin, ymax)
+            lb = numpy.array([0.0, 1.0])
+            ub = numpy.array([numpy.inf, numpy.inf])
+            initial = numpy.array([1.0, 2.0])
+            x = optim.least_squares(loss, initial, bounds=(lb, ub)).x
+            self._params = {"ymin" : ymin, "ymax" : ymax, "K" : x[0], "n" : x[1]}
+
+        return self._params
 
     @property
     def hill_function(self):
@@ -82,10 +115,8 @@ class Gate:
         return utils.hill_lambda(*params)
 
     @property
-    def plot(self):
+    def quickplot(self):
         figure, axes = plt.subplots()
-        # axes.set_xlabel(xaxis)
-        # axes.set_ylabel(yaxis)
         axes.set_title(self.name)
         axes.set_yscale("log")
         axes.set_xscale("log")
@@ -93,11 +124,19 @@ class Gate:
         smooth_xs = numpy.logspace(log(min(self.xs)), log(max(self.xs)), 100)
         hs = list(map(self.hill_function, smooth_xs))
         axes.plot(smooth_xs, hs)
+        axes.axvline(self.il, ls='--', c='r')
+        axes.axvline(self.ih, ls='--', c='b')
+        axes.axhline(self.ol, ls='--', c='r')
+        axes.axhline(self.oh, ls='--', c='b')
         return figure
 
     @property
     def histograms(self):
         return [self.histogram(x) for x in self.xs]
+
+    @property
+    def has_valid_thresholds(self):
+        return self.ih > self.il and self.oh > self.ol
 
     def histogram(self, x_index):
         figure, axes = plt.subplots()
@@ -108,3 +147,10 @@ class Gate:
         xs, bins = self._histograms[x_index]
         axes.hist(xs, bins=bins)
         return figure
+
+    def is_compatible_with(self, other):
+        return (self.oh > other.ih
+                and other.il > self.ol
+                and self.has_valid_thresholds
+                and other.has_valid_thresholds
+                and self.name[2:] != other.name[2:])

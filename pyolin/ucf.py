@@ -100,6 +100,8 @@ class UCFGate(Gate):
         self._name = gate_name
         self._params = params(ucf, gate_name)
         self._cytodata = cytometry(ucf, gate_name)["cytometry_data"]
+        self._upper_t = 2
+        self._lower_t = 2
 
     @property
     def params(self):

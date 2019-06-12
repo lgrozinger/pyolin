@@ -9,4 +9,5 @@ notebooks/.ipynb_checkpoints/*
 !requirements.txt
 !Dockerfile
 !**/**/*.sh
-!data/gates2.csv
+!gates2.csv
+!gates.csv
