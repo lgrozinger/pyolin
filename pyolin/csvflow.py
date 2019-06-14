@@ -12,7 +12,7 @@ gate_prefixes = {"af" : "1201",
                  "input" : "1818",
                  "pTac" : "1818"}
 
-with open("../data/gates.csv") as f:
+with open("../gates.csv") as f:
     for name in CSVMedians(f).names:
         gate_prefixes[name] = name
 
