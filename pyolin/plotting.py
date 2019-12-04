@@ -3,7 +3,7 @@ from .utils import score
 import seaborn as sns
 import numpy
 
-def compatibility_heatmap(gates):
+def compatibility_heatmap(gates, offset=0.0):
 
     valid_gates = [g for g in filter(lambda x: x.has_valid_thresholds, gates)]
     num_gates = len(valid_gates)
@@ -12,7 +12,7 @@ def compatibility_heatmap(gates):
         a = valid_gates[j]
         for i in range(num_gates):
             b = valid_gates[i]
-            compatibility[i,j] = a.is_compatible_with(b)
+            compatibility[i,j] = a.is_compatible_with(b, offset=offset)
 
     figure, axes = plot.subplots()
     gate_names = [g.name for g in valid_gates]
@@ -33,7 +33,7 @@ def compatibility_heatmap(gates):
 
     return figure
 
-def score_heatmap(gates):
+def score_heatmap(gates, offset=0.0):
 
     valid_gates = [g for g in filter(lambda x: x.has_valid_thresholds, gates)]
     num_gates = len(valid_gates)
@@ -42,7 +42,7 @@ def score_heatmap(gates):
         a = valid_gates[j]
         for i in range(num_gates):
             b = valid_gates[i]
-            scores[i,j] = score(a, b)
+            scores[i,j] = score(a, b, offset=offset)
 
     figure, axes = plot.subplots()
     gate_names = [g.name for g in valid_gates]

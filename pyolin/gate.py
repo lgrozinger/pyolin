@@ -99,7 +99,7 @@ class Gate:
         if self._params is None:
             ymin = min(self.ys)
             ymax = max(self.ys)
-            loss = utils.residuals(self.xs, self.ys, ymin, ymax)
+            loss = utils.log_residuals(self.xs, self.ys, ymin, ymax)
             lb = numpy.array([0.0, 1.0])
             ub = numpy.array([numpy.inf, numpy.inf])
             initial = numpy.array([1.0, 2.0])
@@ -120,14 +120,17 @@ class Gate:
         axes.set_title(self.name)
         axes.set_yscale("log")
         axes.set_xscale("log")
+
+
         axes.scatter(self.xs, self.ys)
         smooth_xs = numpy.logspace(log(min(self.xs)), log(max(self.xs)), 100)
         hs = list(map(self.hill_function, smooth_xs))
         axes.plot(smooth_xs, hs)
         axes.axvline(self.il, ls='--', c='r')
-        axes.axvline(self.ih, ls='--', c='b')
+        axes.axvline(self.ih, ls='--', c='b') 
         axes.axhline(self.ol, ls='--', c='r')
         axes.axhline(self.oh, ls='--', c='b')
+            
         return figure
 
     @property
@@ -148,9 +151,8 @@ class Gate:
         axes.hist(xs, bins=bins)
         return figure
 
-    def is_compatible_with(self, other):
-        return (self.oh > other.ih
-                and other.il > self.ol
+    def is_compatible_with(self, other, offset=0.0):
+        return (utils.score(self, other, offset=offset) > 0
                 and self.has_valid_thresholds
                 and other.has_valid_thresholds
                 and self.name[2:] != other.name[2:])
