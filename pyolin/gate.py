@@ -2,15 +2,17 @@ import numpy
 import scipy.optimize as optim
 import matplotlib.pyplot as plt
 
+import similaritymeasures as sm
+
 import pyolin.csvflow as csvflow
 from pyolin.csvdata import CSVMedians
 import pyolin.utils as utils
 
 from math import log10 as log
-from math import isnan
+from math import exp
+
 
 class Gate:
-
     def __init__(self, name, xs, ys):
         self.xs = xs
         self.ys = ys
@@ -18,6 +20,23 @@ class Gate:
         self._params = None
         self._upper_t = 2
         self._lower_t = 2
+
+    @classmethod
+    def from_dataframe(cls, df, strain, cargo, backbone):
+        dataframe = df[(df.strain == strain) &
+                       (df.plasmid == cargo) &
+                       (df.backbone == backbone)]
+
+        data = []
+        for id, row in dataframe.iterrows():
+            data.append((row.iptg, row.rrpu))
+
+        data.sort()
+        xs = [x for (x, y) in data]
+        ys = [exp(y) for (x, y) in data]
+        gate = Gate(f"{strain}_{backbone}_{cargo}", xs, ys)
+        gate.dataframe = dataframe
+        return gate
 
     @classmethod
     def from_csv(cls, filename, gate_name):
@@ -99,7 +118,7 @@ class Gate:
         if self._params is None:
             ymin = min(self.ys)
             ymax = max(self.ys)
-            loss = utils.log_residuals(self.xs, self.ys, ymin, ymax)
+            loss = utils.residuals(self.xs, self.ys, ymin, ymax)
             lb = numpy.array([0.0, 1.0])
             ub = numpy.array([numpy.inf, numpy.inf])
             initial = numpy.array([1.0, 2.0])
@@ -120,17 +139,15 @@ class Gate:
         axes.set_title(self.name)
         axes.set_yscale("log")
         axes.set_xscale("log")
-
-
         axes.scatter(self.xs, self.ys)
         smooth_xs = numpy.logspace(log(min(self.xs)), log(max(self.xs)), 100)
         hs = list(map(self.hill_function, smooth_xs))
         axes.plot(smooth_xs, hs)
         axes.axvline(self.il, ls='--', c='r')
-        axes.axvline(self.ih, ls='--', c='b') 
+        axes.axvline(self.ih, ls='--', c='b')
         axes.axhline(self.ol, ls='--', c='r')
         axes.axhline(self.oh, ls='--', c='b')
-            
+
         return figure
 
     @property
@@ -143,8 +160,6 @@ class Gate:
 
     def histogram(self, x_index):
         figure, axes = plt.subplots()
-        # axes.set_xlabel(xaxis)
-        # axes.set_ylabel(yaxis)
         axes.set_title(self.name)
         axes.set_xscale("log")
         xs, bins = self._histograms[x_index]
@@ -156,3 +171,23 @@ class Gate:
                 and self.has_valid_thresholds
                 and other.has_valid_thresholds
                 and self.name[2:] != other.name[2:])
+
+    @property
+    def numpy_curve(self):
+        data = numpy.zeros((len(self.xs), 2))
+        data[:, 0] = numpy.array(self.xs)
+        data[:, 1] = numpy.array(self.normalised_ys)
+        return data
+
+    def frechet_similarity_to(self, other):
+        return sm.frechet_dist(self.numpy_curve, other.numpy_curve)
+
+    def curve_length_similarity_to(self, other):
+        return sm.curve_length_measure(self.numpy_curve, other.numpy_curve)
+
+    @property
+    def normalised_ys(self):
+        ymin = self.params["ymin"]
+        ymax = self.params["ymax"]
+        yrange = ymax - ymin
+        return [(y - ymin) / yrange for y in self.ys]

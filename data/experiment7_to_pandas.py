@@ -11,7 +11,7 @@ usedir=yourdir
 
 file_list[0]
 
-file_list=os.listdir(usedir):
+file_list=os.listdir(usedir)
 pandas.read_csv(usedir+"/"+file_list[0],index=false)
 
 df_list=[]
