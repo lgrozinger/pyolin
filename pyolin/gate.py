@@ -181,7 +181,7 @@ class Gate:
 
     def frechet_similarity_to(self, other):
         return sm.frechet_dist(self.numpy_curve, other.numpy_curve)
-
+    
     def curve_length_similarity_to(self, other):
         return sm.curve_length_measure(self.numpy_curve, other.numpy_curve)
 
