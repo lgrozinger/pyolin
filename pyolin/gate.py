@@ -23,19 +23,15 @@ class Gate:
 
     @classmethod
     def from_dataframe(cls, df, strain, cargo, backbone):
-        dataframe = df[(df.strain == strain) &
-                       (df.plasmid == cargo) &
-                       (df.backbone == backbone)]
+        xy = []
+        for id, row in df.iterrows():
+            xy.append((row.iptg, row.rrpu))
 
-        data = []
-        for id, row in dataframe.iterrows():
-            data.append((row.iptg, row.rrpu))
-
-        data.sort()
-        xs = [x for (x, y) in data]
-        ys = [exp(y) for (x, y) in data]
+        xy.sort()
+        xs = [x for (x, y) in xy]
+        ys = [exp(y) for (x, y) in xy]
         gate = Gate(f"{strain}_{backbone}_{cargo}", xs, ys)
-        gate.dataframe = dataframe
+        gate.dataframe = df
         return gate
 
     @classmethod
@@ -172,16 +168,18 @@ class Gate:
                 and other.has_valid_thresholds
                 and self.name[2:] != other.name[2:])
 
-    @property
-    def numpy_curve(self):
+    def numpy_curve(self, normal=True):
         data = numpy.zeros((len(self.xs), 2))
         data[:, 0] = numpy.array(self.xs)
-        data[:, 1] = numpy.array(self.normalised_ys)
+        if normal:
+            data[:, 1] = numpy.array(self.normalised_ys)
+        else:
+            data[:, 1] = numpy.array(self.ys)
         return data
 
     def frechet_similarity_to(self, other):
         return sm.frechet_dist(self.numpy_curve, other.numpy_curve)
-    
+
     def curve_length_similarity_to(self, other):
         return sm.curve_length_measure(self.numpy_curve, other.numpy_curve)
 
