@@ -4,7 +4,6 @@ from math import log10 as log
 import similaritymeasures as sm
 
 
-
 def hill_lambda(ymin, ymax, k, n):
     return lambda x: ymin + (ymax - ymin) / (1 + (x / k)**n)
 

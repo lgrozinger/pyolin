@@ -3,7 +3,7 @@ import similaritymeasures as sm
 import seaborn
 
 import numpy
-
+from math import exp
 
 class GateData:
     def __init__(self, pandas_dataframe):
@@ -26,19 +26,39 @@ class GateData:
             results = []
             for name, group in data.groupby(['strain', 'backbone', 'plasmid']):
                 if not group.empty:
-                    results.append(Gate.from_dataframe(group, *name))
+                    rpu_in = self.get_input_rpus(name[0], name[1])
+                    gate_curve = self.get_gate_curve(*name)
+                    iptg_in = [iptg for (iptg, rpu) in gate_curve]
+                    rpu_out = [rpu for (iptg, rpu) in gate_curve]
+                    gate = Gate('_'.join(name), iptg_in, rpu_in, rpu_out)
+                    results.append(gate)
 
+            results = results if len(results) > 1 else results[0]
             return results
         else:
             raise TypeError
 
+    def get_gate_curve(self, strain, backbone, plasmid):
+        gate_df = self.df[(self.df.strain == strain) &
+                          (self.df.backbone == backbone) &
+                          (self.df.plasmid == plasmid)]
+
+        gate_curve = [(exp(row.iptg), exp(row.rrpu)) for id, row in gate_df.iterrows()]
+        gate_curve.sort()
+        return gate_curve
+        
+    def get_input_rpus(self, strain, backbone):
+        input_gate_curve = self.get_gate_curve(strain, backbone, '1818')
+        return [rpu for (iptg, rpu) in input_gate_curve]
+        
 
 def frechet(a, b):
     return sm.frechet_dist(a.numpy_curve(), b.numpy_curve())
 
 
 def curve_length(a, b):
-    return sm.curve_length_measure(a.numpy_curve(), b.numpy_curve())
+    return sm.curve_length_measure(a.numpy_curve(normal=False),
+                                   b.numpy_curve(normal=False))
 
 
 def area(a, b):
@@ -68,6 +88,10 @@ def similarity_heatmap(gate_data, plasmid_name, func=frechet):
                            linewidth=0.5,
                            xticklabels=labels,
                            yticklabels=labels)
+
+
+def predict(reference_gate, leash_length, ymin_ratio, ymax_ratio):
+    pass
 
 
 def get_plasmids(df):

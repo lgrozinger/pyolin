@@ -13,26 +13,14 @@ from math import exp
 
 
 class Gate:
-    def __init__(self, name, xs, ys):
-        self.xs = xs
-        self.ys = ys
+    def __init__(self, name, iptg, rpu_in, rpu_out):
+        self.iptg = iptg
+        self.rpu_in = rpu_in
+        self.rpu_out = rpu_out
         self._name = name
         self._params = None
         self._upper_t = 2
         self._lower_t = 2
-
-    @classmethod
-    def from_dataframe(cls, df, strain, cargo, backbone):
-        xy = []
-        for id, row in df.iterrows():
-            xy.append((row.iptg, row.rrpu))
-
-        xy.sort()
-        xs = [x for (x, y) in xy]
-        ys = [exp(y) for (x, y) in xy]
-        gate = Gate(f"{strain}_{backbone}_{cargo}", xs, ys)
-        gate.dataframe = df
-        return gate
 
     @classmethod
     def from_csv(cls, filename, gate_name):
@@ -99,11 +87,11 @@ class Gate:
 
     @property
     def dynamic_output_range(self):
-        return max(self.ys) / min(self.ys)
+        return max(self.rpu_out) / min(self.rpu_out)
 
     @property
     def dynamic_input_range(self):
-        return max(self.xs) / min(self.xs)
+        return max(self.rpu_in) / min(self.rpu_in)
 
     @property
     def name(self):
@@ -112,9 +100,9 @@ class Gate:
     @property
     def params(self):
         if self._params is None:
-            ymin = min(self.ys)
-            ymax = max(self.ys)
-            loss = utils.residuals(self.xs, self.ys, ymin, ymax)
+            ymin = min(self.rpu_out)
+            ymax = max(self.rpu_out)
+            loss = utils.residuals(self.rpu_in, self.rpu_out, ymin, ymax)
             lb = numpy.array([0.0, 1.0])
             ub = numpy.array([numpy.inf, numpy.inf])
             initial = numpy.array([1.0, 2.0])
@@ -135,8 +123,10 @@ class Gate:
         axes.set_title(self.name)
         axes.set_yscale("log")
         axes.set_xscale("log")
-        axes.scatter(self.xs, self.ys)
-        smooth_xs = numpy.logspace(log(min(self.xs)), log(max(self.xs)), 100)
+        axes.scatter(self.rpu_in, self.rpu_out)
+        smooth_xs = numpy.logspace(log(min(self.rpu_in)),
+                                   log(max(self.rpu_in)),
+                                   100)
         hs = list(map(self.hill_function, smooth_xs))
         axes.plot(smooth_xs, hs)
         axes.axvline(self.il, ls='--', c='r')
@@ -148,7 +138,7 @@ class Gate:
 
     @property
     def histograms(self):
-        return [self.histogram(x) for x in self.xs]
+        return [self.histogram(x) for x in self.rpu_in]
 
     @property
     def has_valid_thresholds(self):
@@ -163,29 +153,25 @@ class Gate:
         return figure
 
     def is_compatible_with(self, other, offset=0.0):
+        this_gate = self.name.split('_')[2]
+        that_gate = other.name.split('_')[2]
         return (utils.score(self, other, offset=offset) > 0
                 and self.has_valid_thresholds
                 and other.has_valid_thresholds
-                and self.name[2:] != other.name[2:])
+                and this_gate != that_gate)
 
     def numpy_curve(self, normal=True):
-        data = numpy.zeros((len(self.xs), 2))
-        data[:, 0] = numpy.array(self.xs)
+        data = numpy.zeros((len(self.rpu_in), 2))
+        data[:, 0] = numpy.array(self.rpu_in)
         if normal:
-            data[:, 1] = numpy.array(self.normalised_ys)
+            data[:, 1] = numpy.array(self.normalised_rpu_out)
         else:
-            data[:, 1] = numpy.array(self.ys)
+            data[:, 1] = numpy.array(self.rpu_out)
         return data
 
-    def frechet_similarity_to(self, other):
-        return sm.frechet_dist(self.numpy_curve, other.numpy_curve)
-
-    def curve_length_similarity_to(self, other):
-        return sm.curve_length_measure(self.numpy_curve, other.numpy_curve)
-
     @property
-    def normalised_ys(self):
+    def normalised_rpu_out(self):
         ymin = self.params["ymin"]
         ymax = self.params["ymax"]
         yrange = ymax - ymin
-        return [(y - ymin) / yrange for y in self.ys]
+        return [(y - ymin) / yrange for y in self.rpu_out]
