@@ -117,12 +117,25 @@ class Gate:
         params = [self.params[p] for p in params]
         return utils.hill_lambda(*params)
 
-    @property
-    def quickplot(self):
+    def baseplot(self, ylimits=None):
         figure, axes = plt.subplots()
         axes.set_title(self.name)
         axes.set_yscale("log")
         axes.set_xscale("log")
+
+        if ylimits is not None:
+            axes.set_ylim(*ylimits)
+        else:
+            axes.set_ylim(self.params["ymin"] - 1e-1,
+                          self.params["ymax"] + 1e-1)
+
+        return figure, axes
+
+    def rpuplot(self, ylimits=None):
+        figure, axes = self.baseplot(ylimits=ylimits)
+        axes.set_xlabel("Input (RPUs)")
+        axes.set_ylabel("Output (RPUs)")
+        axes.set_xlim(min(self.rpu_in), max(self.rpu_in))
         axes.scatter(self.rpu_in, self.rpu_out)
         smooth_xs = numpy.logspace(log(min(self.rpu_in)),
                                    log(max(self.rpu_in)),
@@ -133,6 +146,15 @@ class Gate:
         axes.axvline(self.ih, ls='--', c='b')
         axes.axhline(self.ol, ls='--', c='r')
         axes.axhline(self.oh, ls='--', c='b')
+
+        return figure
+
+    def plot(self, ylimits=None):
+        figure, axes = self.baseplot(ylimits=ylimits)
+        axes.set_xlabel("IPTG (µM)")
+        axes.set_ylabel("Output (RPUs)")
+        axes.set_xlim(min(self.iptg), max(self.iptg))
+        axes.scatter(self.iptg, self.rpu_out)
 
         return figure
 
