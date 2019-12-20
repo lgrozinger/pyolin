@@ -22,6 +22,12 @@ class Gate:
         self._upper_t = 2
         self._lower_t = 2
 
+    def __str__(self):
+        return self.name
+
+    def __repr__(self):
+        return self.name
+
     @classmethod
     def from_csv(cls, filename, gate_name):
         with open(filename) as f:
@@ -98,6 +104,18 @@ class Gate:
         return self._name
 
     @property
+    def strain(self):
+        return self.name.split('_')[0]
+
+    @property
+    def backbone(self):
+        return self.name.split('_')[1]
+
+    @property
+    def cargo(self):
+        return '_'.join(self.name.split('_')[-2:])
+
+    @property
     def params(self):
         if self._params is None:
             ymin = min(self.rpu_out)
@@ -106,9 +124,11 @@ class Gate:
             lb = numpy.array([0.0, 1.0])
             ub = numpy.array([numpy.inf, numpy.inf])
             initial = numpy.array([1.0, 2.0])
-            x = optim.least_squares(loss, initial, bounds=(lb, ub)).x
-            self._params = {"ymin" : ymin, "ymax" : ymax, "K" : x[0], "n" : x[1]}
-
+            try:
+                x = optim.least_squares(loss, initial, bounds=(lb, ub)).x
+                self._params = {"ymin" : ymin, "ymax" : ymax, "K" : x[0], "n" : x[1]}
+            except ValueError:
+                print(self.name, self.iptg, self.rpu_in, self.rpu_out)
         return self._params
 
     @property
@@ -116,6 +136,10 @@ class Gate:
         params = ["ymin", "ymax", "K", "n"]
         params = [self.params[p] for p in params]
         return utils.hill_lambda(*params)
+
+    @property
+    def normalised_hill_function(self):
+        return utils.hill_lambda(1e-6, 1.0, self.params["K"], self.params["n"])
 
     def baseplot(self, ylimits=None):
         figure, axes = plt.subplots()
@@ -126,8 +150,8 @@ class Gate:
         if ylimits is not None:
             axes.set_ylim(*ylimits)
         else:
-            axes.set_ylim(self.params["ymin"] - 1e-1,
-                          self.params["ymax"] + 1e-1)
+            axes.set_ylim(self.params["ymin"] * 0.1,
+                          self.params["ymax"] * 10.0)
 
         return figure, axes
 
@@ -172,7 +196,7 @@ class Gate:
         axes.set_xscale("log")
         xs, bins = self._histograms[x_index]
         axes.hist(xs, bins=bins)
-        return figure
+        return figure, axes
 
     def is_compatible_with(self, other, offset=0.0):
         this_gate = self.name.split('_')[2]

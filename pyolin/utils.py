@@ -40,8 +40,8 @@ def c(au_median, af_median, standard_median):
 
 
 def score(gateA, gateB, offset=0.0):
-    ml = log((gateB.il - offset) / gateA.ol) if gateB.il > offset else - log(1 + gateA.ol)
-    mh = log(gateA.oh / (gateB.ih - offset))
+    ml = log((gateB.il - offset) / gateA.ol) if gateB.il >= offset else - log(1 + gateA.ol)
+    mh = log(gateA.oh / (gateB.ih - offset)) if gateB.ih >= offset else - log(1 + gateA.oh)
     return min(ml, mh)
 
 
