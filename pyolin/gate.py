@@ -50,6 +50,7 @@ class Gate:
         ys = [rpu(path) for _, path in files]
         gate = cls(gate_name, xs, ys)
         gate._histograms = [csvflow.rpu_histogram(p, bin_min=0.001, bin_max=946.2371) for _, p in files]
+        
         return gate
 
     @property
@@ -116,6 +117,10 @@ class Gate:
         return '_'.join(self.name.split('_')[-2:])
 
     @property
+    def repressor(self):
+        return self.name.split('_')[2]
+
+    @property
     def params(self):
         if self._params is None:
             ymin = min(self.rpu_out)
@@ -132,6 +137,22 @@ class Gate:
         return self._params
 
     @property
+    def ymin(self):
+        return self.params["ymin"]
+
+    @property
+    def ymax(self):
+        return self.params["ymax"]
+
+    @property
+    def n(self):
+        return self.params["n"]
+
+    @property
+    def K(self):
+        return self.params["K"]
+
+    @property
     def hill_function(self):
         params = ["ymin", "ymax", "K", "n"]
         params = [self.params[p] for p in params]
@@ -139,7 +160,12 @@ class Gate:
 
     @property
     def normalised_hill_function(self):
-        return utils.hill_lambda(1e-6, 1.0, self.params["K"], self.params["n"])
+        normal_curve = self.numpy_curve()
+        normal_gate = Gate(self.name,
+                           self.iptg,
+                           normal_curve[:, 0],
+                           normal_curve[:, 1])
+        return normal_gate.hill_function
 
     def baseplot(self, ylimits=None):
         figure, axes = plt.subplots()
@@ -208,11 +234,12 @@ class Gate:
 
     def numpy_curve(self, normal=True):
         data = numpy.zeros((len(self.rpu_in), 2))
-        data[:, 0] = numpy.array(self.rpu_in)
         if normal:
             data[:, 1] = numpy.array(self.normalised_rpu_out)
+            data[:, 0] = numpy.array(self.normalised_rpu_in)
         else:
             data[:, 1] = numpy.array(self.rpu_out)
+            data[:, 0] = numpy.array(self.rpu_in)
         return data
 
     @property
@@ -221,3 +248,9 @@ class Gate:
         ymax = self.params["ymax"]
         yrange = ymax - ymin
         return [(y - ymin) / yrange for y in self.rpu_out]
+
+    @property
+    def normalised_rpu_in(self):
+        xmin = min(self.rpu_in)
+        xmax = max(self.rpu_in)
+        return [(x - xmin) / (xmax - xmin) for x in self.rpu_in]

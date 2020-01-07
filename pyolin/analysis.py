@@ -70,53 +70,28 @@ def predict(reference_gate, leash_length, ymin_ratio, ymax_ratio):
     pass
 
 
-def paths_for_gate(gate, gates):
-    edges = compatibility_table(gates)
-
-    stack = [gate.name]
-    visited = []
-    current_path = []
-    paths = []
-
-    while stack:
-        current_gate = stack.pop()
-        visited.append(current_gate)
-        current_path.append(current_gate)
-
-        outedges = []
-        for name, data in edges.loc[:, current_gate].iteritems():
-            if data != 0.0:
-                outedges.append(name)
-
-        unvisited = [name for name in outedges if name not in visited]
-        if unvisited:
-            stack += unvisited
-        else:
-            paths.append(current_path)
-            current_path = current_path[:-1]
-
-    return paths
-
-
-def dfs_path_collect(adj_matrix, i, visited, paths, gates):
-    if i not in visited:
+def dfs_path_collect(adj_matrix, i, disallowed, paths, gates, edges):
+    if i not in disallowed:
         outgoings = [j for (j, t) in enumerate(adj_matrix[:, i]) if t]
-        try:
-            paths[len(visited) + 1] += 1
-        except KeyError:
-            paths[len(visited) + 1] = 1
 
         if outgoings:
+            gate = gates[i]
+            similar = {i for i, g in enumerate(gates) if gate.repressor == g.repressor}
             for j in outgoings:
-                dfs_path_collect(adj_matrix, j, visited + [i], paths, gates)
+                dfs_path_collect(adj_matrix, j, similar | disallowed, paths, gates, edges + 1)
+        else:
+            try:
+                paths[edges] += 1
+            except KeyError:
+                paths[edges] = 1
 
 
 def all_paths(gates):
     results = {}
-    edges = numpy.array(compatibility_table(gates))
+    edges = numpy.array(compatibility_table(gates), dtype=numpy.bool)
     for i, gate in enumerate(gates):
         paths = {}
-        dfs_path_collect(edges, i, [], paths, gates)
+        dfs_path_collect(edges, i, set(), paths, gates, 0)
         results[gate.name] = paths
 
     return results
@@ -147,7 +122,7 @@ def analyse(gates, label):
     
         count = 0
         for id, row in compat_results.iterrows():
-            count += len([x for x in row if x == 1.0 ])
+            count += len([x for x in row if x == 1.0])
         print(f"There are {count} compatible pairs of gates.", file=s)
 
         print(f"Gate compatibility: {compat_data_filename}", file=s)
@@ -165,7 +140,10 @@ def analyse(gates, label):
             print(f"{paths}", file=f)
             max_length = 0
             for gate, counts in paths.items():
-                length = max(counts.keys())
+                if counts:
+                    length = max(counts.keys())
+                else:
+                    length = 0
                 max_length = length if length > max_length else max_length
 
             print(f"The maximum pathlength is {max_length}", file=s)
