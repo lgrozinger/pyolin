@@ -1,5 +1,3 @@
-from math import exp
-
 from pyolin.gate import Gate
 
 
@@ -39,6 +37,12 @@ class GateData:
                     gate_curve = self.get_gate_curve(*name)
                     iptg_in = [iptg for (iptg, rpu) in gate_curve]
                     rpu_out = [rpu for (iptg, rpu) in gate_curve]
+                    for i, y in enumerate(rpu_out):
+                        if y is None:
+                            rpu_in.pop(i)
+                            rpu_out.pop(i)
+                            iptg_in.pop(i)
+
                     gate = Gate('_'.join(name), iptg_in, rpu_in, rpu_out)
                     results.append(gate)
 
@@ -57,7 +61,7 @@ class GateData:
         gate_curve = []
         for (x, y) in [(row[x], row[y]) for id, row in view.iterrows()]:
             if y <= 0.0:
-                gate_curve.append((x, 1e-6))
+                gate_curve.append((x, None))
             else:
                 gate_curve.append((x, y))
         gate_curve.sort()

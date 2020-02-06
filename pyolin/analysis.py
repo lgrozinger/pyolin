@@ -9,8 +9,13 @@ import pandas
 import matplotlib.pyplot as plt
 
 
+def gate_drop_context(gate_namestring):
+    splut = gate_namestring.split('_')
+    return f"{splut[-2]} {splut[-1].upper()}"
+
+
 def frechet(a, b):
-    return dog_leash(a.numpy_curve(), b.numpy_curve())
+    return 1.0 - dog_leash(a.numpy_curve(), b.numpy_curve())
 
 
 def arc_length(a, b):
@@ -24,6 +29,11 @@ def area(a, b):
 
 
 def comparison(gates, comparison_func, extra_args=()):
+    """
+    Creates a square matrix whose entries contain the results of
+    applying comparison_func to the gates provided. That is, Aij
+    contains the result of `comparison_func(gate[i], gate[j])`.
+    """
     count = len(gates)
     matrix = numpy.zeros((count, count))
     for i, a in enumerate(gates):
@@ -40,6 +50,14 @@ def similarity_table(gates, func=frechet):
 
 def compatibility_table(gates):
     return comparison(gates, lambda x, y: x.is_compatible_with(y))
+
+
+def reduced_compatibility_table(gates):
+    full_table = comparison(gates, lambda x, y: x.is_compatible_with(y))
+    full_table = full_table.rename(gate_drop_context, axis='index')
+    full_table = full_table.rename(gate_drop_context, axis='columns')
+    full_table = full_table.groupby(full_table.index).agg(numpy.max).T
+    return full_table.groupby(full_table.index).agg(numpy.max).T
 
 
 def score_table(gates):
@@ -147,7 +165,7 @@ def analyse(gates, label):
     
         count = 0
         for id, row in compat_results.iterrows():
-            count += len([x for x in row if x == 1.0 ])
+            count += len([x for x in row if x == 1.0])
         print(f"There are {count} compatible pairs of gates.", file=s)
 
         print(f"Gate compatibility: {compat_data_filename}", file=s)

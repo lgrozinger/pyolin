@@ -2,13 +2,10 @@ import numpy
 import scipy.optimize as optim
 import matplotlib.pyplot as plt
 
-import similaritymeasures as sm
-
-import pyolin.csvflow as csvflow
-from pyolin.csvdata import CSVMedians
 import pyolin.utils as utils
 
 from math import log10 as log
+from math import log as ln
 from math import exp
 
 
@@ -28,29 +25,21 @@ class Gate:
     def __repr__(self):
         return self.name
 
-    @classmethod
-    def from_csv(cls, filename, gate_name):
-        with open(filename) as f:
-            data = CSVMedians(f)
-            xs = data.xs
-            ys = data[gate_name]
-            return cls(gate_name, xs, ys)
+    def to_gnuplot(self, directory):
+        scatter_file = f"{directory}/{self.name}_scatter.dat"
+        curve_file = f"{directory}/{self.name}_curve.dat"
+        with open(scatter_file, 'w') as f:
+            print("'IPTG' 'RPU input' 'RPU output'", file=f)
+            for i in range(len(self.iptg)):
+                print(f"{self.iptg[i]} {self.rpu_in[i]} {self.rpu_out[i]}", file=f)
 
-    @classmethod
-    def from_csvflow(cls, gate_name):
-        files = csvflow.csv_paths(gate_name)
-        files.sort(key=lambda pair : pair[0])
-        xs = [x for x, _  in files]
-        af = csvflow.median_af()
-        st = csvflow.median_standard()
-        def rpu(path):
-            median = csvflow.median(path)
-            return utils.au_to_rpu(median, af, st)
+        with open(curve_file, 'w') as f:
+            xs = numpy.linspace(min(self.rpu_in), max(self.rpu_in), 500)
+            ys = [self.hill_function(x) for x in xs]
+            for x, y in zip(xs, ys):
+                print(f"{x} {y}", file=f)
 
-        ys = [rpu(path) for _, path in files]
-        gate = cls(gate_name, xs, ys)
-        gate._histograms = [csvflow.rpu_histogram(p, bin_min=0.001, bin_max=946.2371) for _, p in files]
-        return gate
+        return scatter_file, curve_file
 
     @property
     def il(self):
@@ -87,9 +76,9 @@ class Gate:
         self._upper_t = v[0]
         self._lower_t = v[1]
 
-    @property
-    def from_gates(cls, input_gate, output_gate):
-        return cls(output_gate.name, input_gate.ys, output_gate.ys)
+    @classmethod
+    def from_gates(cls, _in, out):
+        return cls(out.name, _in.iptg, _in.rpu_in, out.rpu_out)
 
     @property
     def dynamic_output_range(self):
@@ -116,19 +105,36 @@ class Gate:
         return '_'.join(self.name.split('_')[-2:])
 
     @property
+    def ymax(self):
+        return self.params["ymax"]
+
+    @property
+    def ymin(self):
+        return self.params["ymin"]
+
+    @property
+    def K(self):
+        return self.params["K"]
+
+    @property
+    def n(self):
+        return self.params["n"]
+
+    @property
     def params(self):
         if self._params is None:
             ymin = min(self.rpu_out)
             ymax = max(self.rpu_out)
             loss = utils.residuals(self.rpu_in, self.rpu_out, ymin, ymax)
-            lb = numpy.array([0.0, 1.0])
+            lb = numpy.array([-numpy.inf, -numpy.inf])
             ub = numpy.array([numpy.inf, numpy.inf])
-            initial = numpy.array([1.0, 2.0])
+            initial = numpy.array([0.0, 2.0])
             try:
                 x = optim.least_squares(loss, initial, bounds=(lb, ub)).x
                 self._params = {"ymin" : ymin, "ymax" : ymax, "K" : x[0], "n" : x[1]}
-            except ValueError:
+            except ValueError as e:
                 print(self.name, self.iptg, self.rpu_in, self.rpu_out)
+                raise e
         return self._params
 
     @property
@@ -137,9 +143,25 @@ class Gate:
         params = [self.params[p] for p in params]
         return utils.hill_lambda(*params)
 
+    def log(self):
+        log_rpu_out = [ln(x) for x in self.rpu_out]
+        log_rpu_in = [ln(x) for x in self.rpu_in]
+        return Gate(self.name, self.iptg, log_rpu_in, log_rpu_out)
+
+    def exp(self):
+        exp_rpu_out = [exp(x) for x in self.rpu_out]
+        exp_rpu_in = [exp(x) for x in self.rpu_in]
+        return Gate(self.name, self.iptg, exp_rpu_in, exp_rpu_out)
+
+    def normal(self, lower=(0.0, 0.0), upper=(1.0, 1.0)):
+        normal_rpu_out = utils.normalise(self.rpu_out, lower[0], upper[0])
+        normal_rpu_in = utils.normalise(self.rpu_in, lower[1], upper[1])
+        return Gate(self.name, self.iptg, normal_rpu_in, normal_rpu_out)
+
     @property
-    def normalised_hill_function(self):
-        return utils.hill_lambda(1e-6, 1.0, self.params["K"], self.params["n"])
+    def normalised_hill_function(self, lower=(0.0, 0.0), upper=(1.0, 1.0)):
+        normal_gate = self.normal(lower=lower, upper=upper)
+        return utils.hill_lambda(1e-6, 1.0, normal_gate.K, normal_gate.n)
 
     def baseplot(self, ylimits=None):
         figure, axes = plt.subplots()
@@ -207,13 +229,18 @@ class Gate:
                 and this_gate != that_gate)
 
     def numpy_curve(self, normal=True):
-        data = numpy.zeros((len(self.rpu_in), 2))
-        data[:, 0] = numpy.array(self.rpu_in)
         if normal:
-            data[:, 1] = numpy.array(self.normalised_rpu_out)
+            normal_gate = self.normal(lower=(1.0, 1.0), upper=(2.0, 2.0))
+            return normal_gate.numpy_curve(normal=False)
         else:
+            data = numpy.zeros((len(self.rpu_in), 2))
+            data[:, 0] = numpy.array(self.rpu_in)
             data[:, 1] = numpy.array(self.rpu_out)
         return data
+
+    @property
+    def points(self):
+        return numpy.array([self.rpu_in, self.rpu_out]).T
 
     @property
     def normalised_rpu_out(self):
