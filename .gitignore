@@ -2,6 +2,7 @@
 !.gitignore
 !*/
 !**/**/*.py
+!**/**/*.gp
 !**/**/*.ipynb
 notebooks/.ipynb_checkpoints/*
 !README*
