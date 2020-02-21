@@ -88,53 +88,56 @@ def predict(reference_gate, leash_length, ymin_ratio, ymax_ratio):
     pass
 
 
-def paths_for_gate(gate, gates):
-    edges = compatibility_table(gates)
-
-    stack = [gate.name]
-    visited = []
-    current_path = []
-    paths = []
-
-    while stack:
-        current_gate = stack.pop()
-        visited.append(current_gate)
-        current_path.append(current_gate)
-
-        outedges = []
-        for name, data in edges.loc[:, current_gate].iteritems():
-            if data != 0.0:
-                outedges.append(name)
-
-        unvisited = [name for name in outedges if name not in visited]
-        if unvisited:
-            stack += unvisited
+def dfs_max_path(adj_matrix, start, disallowed, visited, gates, paths):
+    if start not in disallowed:
+        outgoings = {j for (j, t) in enumerate(adj_matrix[start, :]) if t}
+        outgoings = outgoings - disallowed
+        if outgoings:
+            gate = gates[start]
+            def are_similar(A, B):
+                return A.repressor == B.repressor
+            similar = {i for (i, g) in enumerate(gates) if are_similar(gate, g)}
+            similar = similar | disallowed
+            for conn in outgoings:
+                dfs_max_path(adj_matrix, conn, similar, visited + [start], gates, paths)
         else:
-            paths.append(current_path)
-            current_path = current_path[:-1]
-
-    return paths
+            paths[len(visited) + 1] = [gates[i].name for i in visited + [start]]
 
 
-def dfs_path_collect(adj_matrix, i, visited, paths, gates):
-    if i not in visited:
-        outgoings = [j for (j, t) in enumerate(adj_matrix[:, i]) if t]
-        try:
-            paths[len(visited) + 1] += 1
-        except KeyError:
-            paths[len(visited) + 1] = 1
+def dfs_path_collect(adj_matrix, i, disallowed, paths, gates, edges):
+    if i not in disallowed:
+        outgoings = {j for (j, t) in enumerate(adj_matrix[i, :]) if t}
+        outgoings = outgoings - disallowed
 
         if outgoings:
+            gate = gates[i]
+            similar = {i for i, g in enumerate(gates) if gate.repressor == g.repressor}
             for j in outgoings:
-                dfs_path_collect(adj_matrix, j, visited + [i], paths, gates)
+                dfs_path_collect(adj_matrix, j, similar | disallowed, paths, gates, edges + 1)
+        else:
+            try:
+                paths[edges] += 1
+            except KeyError:
+                paths[edges] = 1
+
+
+def max_named_paths(gates):
+    results = {}
+    edges = numpy.array(compatibility_table(gates), dtype=numpy.bool)
+    for i, gate in enumerate(gates):
+        paths = {}
+        dfs_max_path(edges, i, set(), [], gates, paths)
+        results[gate.name] = paths
+
+    return results
 
 
 def all_paths(gates):
     results = {}
-    edges = numpy.array(compatibility_table(gates))
+    edges = numpy.array(compatibility_table(gates), dtype=numpy.bool)
     for i, gate in enumerate(gates):
         paths = {}
-        dfs_path_collect(edges, i, [], paths, gates)
+        dfs_max_path(edges, i, set(), [], gates, paths)
         results[gate.name] = paths
 
     return results
@@ -155,17 +158,15 @@ def analyse(gates, label):
             gate.rpuplot()
             plt.savefig(f"results/rpu_vs_rpu_for_{gate.name}.eps")
             plt.close()
-            
+
         print(f"Valid gates {len(valid_gates)}/{len(gates)}.", file=s)
-    
+
         score_results = score_table(valid_gates)
         compat_results = compatibility_table(valid_gates)
         score_results.to_csv(score_data_filename)
         compat_results.to_csv(compat_data_filename)
-    
-        count = 0
-        for id, row in compat_results.iterrows():
-            count += len([x for x in row if x == 1.0])
+
+        count = sum(sum(compat_results.to_numpy()))
         print(f"There are {count} compatible pairs of gates.", file=s)
 
         print(f"Gate compatibility: {compat_data_filename}", file=s)
@@ -180,10 +181,14 @@ def analyse(gates, label):
         with open(path_filename, 'w') as f:
             print(f"Paths and path length: {path_filename}", file=s)
             paths = all_paths(valid_gates)
-            print(f"{paths}", file=f)
+            for k in paths:
+                print(f"START AT {k}: {paths[k]}", file=f)
             max_length = 0
             for gate, counts in paths.items():
-                length = max(counts.keys())
+                if counts:
+                    length = max(counts.keys())
+                else:
+                    length = 0
                 max_length = length if length > max_length else max_length
 
             print(f"The maximum pathlength is {max_length}", file=s)

@@ -27,6 +27,16 @@ def hill_derivative(k, n):
     return lambda x: - n * (x / k)**(n - 1) / k / (1 + (x / k)**n)**2
 
 
+def log_residuals(xs, ys, ymin, ymax):
+    def loss(p):
+        hill = hill_lambda(ymin, ymax, *p)
+        predicted = numpy.array([hill(x) + 1 for x in xs])
+        actual = numpy.array([y + 1 for y in ys])
+        return numpy.log(actual) - numpy.log(predicted)
+
+    return loss
+
+
 def residuals(xs, ys, ymin, ymax):
     def loss(p):
         hill = hill_lambda(ymin, ymax, *p)

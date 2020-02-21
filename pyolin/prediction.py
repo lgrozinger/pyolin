@@ -1,6 +1,8 @@
 from pyolin.utils import hill_derivative
 from pyolin.utils import normalise
 
+from pyolin.analysis import frechet
+
 import numpy
 from numpy.linalg import norm
 from numpy import array
@@ -101,6 +103,46 @@ def prediction(A, B, reference):
     upper_curve = array([upper_curve[:, 0], exp(upper_curve[:, 1])]).T
     lower_curve = array([lower_curve[:, 0], exp(lower_curve[:, 1])]).T
     return upper_curve, lower_curve
+
+import matplotlib.pyplot as plt
+
+def do_prediction(gateA, gateB, reference_gates, unknown_gates):
+    for reference, actual in zip(reference_gates, unknown_gates):
+        ub, lb = prediction(gateA, gateB, reference)
+        axes = actual.rpuplot().axes[0]
+        axes.plot([x for (x, y) in ub], [y for (x, y) in ub])
+        axes.plot([x for (x, y) in lb], [y for (x, y) in lb])
+        plt.show()
+        plt.figure()
+
+
+def prediction(from_gate, foreign_gate, reference_gate):
+    """
+    Based on the relationship between from_gate and foreign_gate,
+    derive upper and lower bounds for the reference_gate in the
+    foreign context.
+    """
+    leash = frechet(from_gate, foreign_gate)
+    ub, lb = boundary_curves(reference_gate, leash)
+
+    def scale_x(x):
+        xmin = min(foreign_gate.rpu_in)
+        xmax = max(foreign_gate.rpu_in)
+        return x * (xmax - xmin) + xmin
+
+    def scale_y(y):
+        ymin = min(foreign_gate.rpu_out)
+        ymax = max(foreign_gate.rpu_out)
+        return y * (ymax - ymin) + ymin
+
+    ub = [(scale_x(x), scale_y(y)) for (x, y) in ub]
+    lb = [(scale_x(x), scale_y(y)) for (x, y) in lb]
+    return ub, lb
+
+
+def coerce_positive(x):
+    result = x if x > 0.0 else 0.0
+    return result
 
 
 def boundary_curves(gate, leash_length):

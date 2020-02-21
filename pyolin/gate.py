@@ -121,12 +121,16 @@ class Gate:
         return self.params["n"]
 
     @property
+    def repressor(self):
+        return self.name.split('_')[2]
+
+    @property
     def params(self):
         if self._params is None:
             ymin = min(self.rpu_out)
             ymax = max(self.rpu_out)
-            loss = utils.residuals(self.rpu_in, self.rpu_out, ymin, ymax)
-            lb = numpy.array([-numpy.inf, -numpy.inf])
+            loss = utils.log_residuals(self.rpu_in, self.rpu_out, ymin, ymax)
+            lb = numpy.array([0.0, 0.0])
             ub = numpy.array([numpy.inf, numpy.inf])
             initial = numpy.array([0.0, 2.0])
             try:
@@ -136,6 +140,22 @@ class Gate:
                 print(self.name, self.iptg, self.rpu_in, self.rpu_out)
                 raise e
         return self._params
+
+    @property
+    def ymin(self):
+        return self.params["ymin"]
+
+    @property
+    def ymax(self):
+        return self.params["ymax"]
+
+    @property
+    def n(self):
+        return self.params["n"]
+
+    @property
+    def K(self):
+        return self.params["K"]
 
     @property
     def hill_function(self):
@@ -236,6 +256,7 @@ class Gate:
             data = numpy.zeros((len(self.rpu_in), 2))
             data[:, 0] = numpy.array(self.rpu_in)
             data[:, 1] = numpy.array(self.rpu_out)
+            data[:, 0] = numpy.array(self.rpu_in)
         return data
 
     @property
@@ -248,3 +269,9 @@ class Gate:
         ymax = self.params["ymax"]
         yrange = ymax - ymin
         return [(y - ymin) / yrange for y in self.rpu_out]
+
+    @property
+    def normalised_rpu_in(self):
+        xmin = min(self.rpu_in)
+        xmax = max(self.rpu_in)
+        return [(x - xmin) / (xmax - xmin) for x in self.rpu_in]

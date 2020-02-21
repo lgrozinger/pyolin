@@ -23,6 +23,7 @@ def linear_transform_prediction(A, B, reference):
     solution = optim_matrix(A, B)
 
     if solution.success:
+        print(solution)
         Z = solution.x
         Z.shape = (2, 2)
         guess_points = numpy.dot(Z, reference.points.T)

@@ -106,7 +106,7 @@ def gate_drop_context(gate_namestring):
 def figure3d(gates, directory):
     assert len(set([gate.cargo for gate in gates])) == 1
     matrix_file = f"{directory}/similarity_matrix_{gates[0].cargo}.dat"
-    scores = similarity_table(gates)
+    scores = similarity_table([g.log().normal() for g in gates])
     scores = scores.rename(gate_drop_name, axis='index')
     scores = scores.rename(gate_drop_name, axis='columns')
 
