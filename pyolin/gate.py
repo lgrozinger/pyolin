@@ -142,22 +142,6 @@ class Gate:
         return self._params
 
     @property
-    def ymin(self):
-        return self.params["ymin"]
-
-    @property
-    def ymax(self):
-        return self.params["ymax"]
-
-    @property
-    def n(self):
-        return self.params["n"]
-
-    @property
-    def K(self):
-        return self.params["K"]
-
-    @property
     def hill_function(self):
         params = ["ymin", "ymax", "K", "n"]
         params = [self.params[p] for p in params]
