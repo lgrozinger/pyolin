@@ -104,7 +104,9 @@ def prediction(A, B, reference):
     lower_curve = array([lower_curve[:, 0], exp(lower_curve[:, 1])]).T
     return upper_curve, lower_curve
 
+
 import matplotlib.pyplot as plt
+
 
 def do_prediction(gateA, gateB, reference_gates, unknown_gates):
     for reference, actual in zip(reference_gates, unknown_gates):

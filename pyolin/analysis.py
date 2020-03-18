@@ -168,6 +168,8 @@ def analyse(gates, label):
 
         count = sum(sum(compat_results.to_numpy()))
         print(f"There are {count} compatible pairs of gates.", file=s)
+        count = sum(sum(reduced_compatibility_table(valid_gates).to_numpy()))
+        print(f"There are {count} (reduced) compatible pairs of gates.", file=s)
 
         print(f"Gate compatibility: {compat_data_filename}", file=s)
         plt.figure()  # ensures new plot

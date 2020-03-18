@@ -1,3 +1,8 @@
+import os
+import numpy
+from pyolin.gate import Gate
+from pyolin.linear_transform import linear_transform_prediction
+
 figure2_style = (
     """set term postscript eps enhanced color
 
@@ -184,8 +189,6 @@ load '~/src/gnuplot/gnuplot-palettes/blues.pal'
 def figure3bc(gates, directory, name):
     matrix_file = f"{directory}/compat_matrix_{name}.dat"
     scores = reduced_compatibility_table(gates)
-    # scores = scores.rename(gate_drop_context, axis='index')
-    # scores = scores.rename(gate_drop_context, axis='columns')
 
     with open(matrix_file, 'w') as f:
         f.write(scores.to_csv())
@@ -213,3 +216,48 @@ def figure3bc(gates, directory, name):
         print("set datafile separator", file=f)
 
     return scores
+
+
+def figure5(data, A, B, directory):
+    def remove_negative(numpy_array):
+        filtered = [row for row in numpy_array if row[0] > 0.0 and row[1] > 0.0]
+        return numpy.vstack(tuple(filtered))
+    
+    for ref in data[A.strain:A.backbone:]:
+        unknown = data[B.strain:B.backbone:ref.cargo]
+        if unknown:
+            guess_points, solution = linear_transform_prediction(A, B, ref)
+            guess_points = remove_negative(guess_points)
+            guess = Gate(f"{ref.name}_guess",
+                         [],
+                         guess_points[:, 0],
+                         guess_points[:, 1])
+
+            scatter, curve = guess.to_gnuplot(directory)
+            guess_scatter = f"predict_{unknown.name}_from_{A.name}_and_{B.name}_scatter.csv"
+            guess_curve = f"predict_{unknown.name}_from_{A.name}_and_{B.name}_curve.csv"
+            scatter, curve = unknown.to_gnuplot(directory)
+            
+            os.rename(scatter, guess_scatter)
+            os.rename(curve, guess_curve)
+            with open(f"{directory}/predict_{unknown.name}_from_{A.name}_and_{B.name}.gp", 'w') as f:
+
+                print("reset session", file=f)
+                print(figure2_style, file=f)
+
+                print(("set output 'predict_{unknown.name}_from_{A.name}_and_{B.name}.eps'",
+                      file=f)
+
+                print((f"set title 'Prediction for "
+                       f"{name.replace('_', ' ')}' "
+                       f"font 'Computer Modern Roman,30'"),
+                      file=f)
+
+                print("unset key", file=f)
+
+                print("set datafile separator comma", file=f)
+                print((f"plot '{matrix_file}' matrix rowheaders columnheaders "
+                       f"using 1:2:3 with image"),
+                      file=f)
+                print("set datafile separator", file=f)
+                
