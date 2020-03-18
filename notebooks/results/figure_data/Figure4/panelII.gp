@@ -1,6 +1,6 @@
 reset session
 set term postscript eps enhanced dashed color size 18.3, 3.0
-set output '/home/campus.ncl.ac.uk/b8051106/my/src/python/pyolin/notebooks/results/figure_data/Figure4/panelII_gates.eps'
+set output 'notebooks/results/figure_data/Figure4/panelII_gates.eps'
 
 set autoscale
 
@@ -43,33 +43,33 @@ set ylabel 'Output' offset -5
 set title 'Phif P3'
 set lmargin at screen 0.05
 plot \
-     '/home/campus.ncl.ac.uk/b8051106/my/src/python/pyolin/notebooks/results/figure_data/Figure2/CC118Lpir_pSeva221_Phif_p3_scatter.dat' using 2:3 ls 1 ps 2 notitle,\
-     '/home/campus.ncl.ac.uk/b8051106/my/src/python/pyolin/notebooks/results/figure_data/Figure2/CC118Lpir_pSeva221_Phif_p3_curve.dat' using 1:2 w l ls 1 lw 10 notitle
+     'notebooks/results/figure_data/Figure2/CC118Lpir_pSeva221_Phif_p3_scatter.dat' using 2:3 ls 1 ps 2 notitle,\
+     'notebooks/results/figure_data/Figure2/CC118Lpir_pSeva221_Phif_p3_curve.dat' using 1:2 w l ls 1 lw 10 notitle
 
 unset ylabel
 set ytics format ""
 set title 'Beti E1'
 set lmargin at screen 0.05 + ((1-0.05) / 5.0)*1
 plot \
-     '/home/campus.ncl.ac.uk/b8051106/my/src/python/pyolin/notebooks/results/figure_data/Figure2/CC118Lpir_pSeva231_Beti_e1_scatter.dat' using 2:3 ls 1 ps 2 notitle,\
-     '/home/campus.ncl.ac.uk/b8051106/my/src/python/pyolin/notebooks/results/figure_data/Figure2/CC118Lpir_pSeva231_Beti_e1_curve.dat' using 1:2 w l ls 1 lw 10 notitle
+     'notebooks/results/figure_data/Figure2/CC118Lpir_pSeva231_Beti_e1_scatter.dat' using 2:3 ls 1 ps 2 notitle,\
+     'notebooks/results/figure_data/Figure2/CC118Lpir_pSeva231_Beti_e1_curve.dat' using 1:2 w l ls 1 lw 10 notitle
 
 set title 'Psra R1'
 set lmargin at screen 0.05 + ((1-0.05) / 5.0)*2
 plot \
-     '/home/campus.ncl.ac.uk/b8051106/my/src/python/pyolin/notebooks/results/figure_data/Figure2/CC118Lpir_pSeva221_Psra_r1_scatter.dat' using 2:3 ls 1 ps 2 notitle,\
-     '/home/campus.ncl.ac.uk/b8051106/my/src/python/pyolin/notebooks/results/figure_data/Figure2/CC118Lpir_pSeva221_Psra_r1_curve.dat' using 1:2 w l ls 1 lw 10 notitle
+     'notebooks/results/figure_data/Figure2/CC118Lpir_pSeva221_Psra_r1_scatter.dat' using 2:3 ls 1 ps 2 notitle,\
+     'notebooks/results/figure_data/Figure2/CC118Lpir_pSeva221_Psra_r1_curve.dat' using 1:2 w l ls 1 lw 10 notitle
 
 set title 'Qacr Q2'
 set lmargin at screen 0.05 + ((1-0.05) / 5.0)*3
 plot \
-     '/home/campus.ncl.ac.uk/b8051106/my/src/python/pyolin/notebooks/results/figure_data/Figure2/CC118Lpir_pSeva231_Qacr_q2_scatter.dat' using 2:3 ls 1 ps 2 notitle,\
-     '/home/campus.ncl.ac.uk/b8051106/my/src/python/pyolin/notebooks/results/figure_data/Figure2/CC118Lpir_pSeva231_Qacr_q2_curve.dat' using 1:2 w l ls 1 lw 10 notitle
+     'notebooks/results/figure_data/Figure2/CC118Lpir_pSeva231_Qacr_q2_scatter.dat' using 2:3 ls 1 ps 2 notitle,\
+     'notebooks/results/figure_data/Figure2/CC118Lpir_pSeva231_Qacr_q2_curve.dat' using 1:2 w l ls 1 lw 10 notitle
 
 
 set title 'Amer F1'
 set lmargin at screen 0.05 + ((1-0.05) / 5.0)*4
 plot \
-     '/home/campus.ncl.ac.uk/b8051106/my/src/python/pyolin/notebooks/results/figure_data/Figure2/CC118Lpir_pSeva221_Amer_f1_scatter.dat' using 2:3 ls 1 ps 2 notitle,\
-     '/home/campus.ncl.ac.uk/b8051106/my/src/python/pyolin/notebooks/results/figure_data/Figure2/CC118Lpir_pSeva221_Amer_f1_curve.dat' using 1:2 w l ls 1 lw 10 notitle
+     'notebooks/results/figure_data/Figure2/CC118Lpir_pSeva221_Amer_f1_scatter.dat' using 2:3 ls 1 ps 2 notitle,\
+     'notebooks/results/figure_data/Figure2/CC118Lpir_pSeva221_Amer_f1_curve.dat' using 1:2 w l ls 1 lw 10 notitle
 

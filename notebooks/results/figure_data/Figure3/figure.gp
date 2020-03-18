@@ -104,7 +104,6 @@ plot 'notebooks/results/figure_data/Figure3/B/compat_matrix_DH5alpha_+_pAN_Conte
 # unset tics
 # plot 'formula.png' binary filetype=png with rgbimage notitle
 
-
 ## PANEL C
 set multiplot next
 set multiplot next
@@ -119,7 +118,6 @@ set xlabel 'Input Gate' offset 0, -4
 set title ''
 plot 'notebooks/results/figure_data/Figure3/C/compat_matrix_All_Strains.dat' matrix rowheaders columnheaders using 1:2:3 with image notitle
 
-
 ## PANEL D
 set palette maxcolors 256
 set cblabel ''
@@ -131,8 +129,5 @@ unset xlabel
 unset ylabel
 set title ''
 plot 'notebooks/results/figure_data/Figure3/D/similarity_matrix_Phif_p1.dat' matrix rowheaders columnheaders using 1:2:3 with image notitle
-
-
-
 
 unset multiplot
