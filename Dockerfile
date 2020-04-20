@@ -13,8 +13,7 @@ RUN python -m pip install --upgrade pip && \
                           scipy \
                           matplotlib \
                           similaritymeasures \
-                          seaborn \
-                          requests
+                          seaborn
 
 RUN apt-get install -y gnuplot \
                        texlive-base \
