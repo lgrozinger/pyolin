@@ -1,3 +1,5 @@
+import requests
+
 from pyolin.gate import Gate
 
 

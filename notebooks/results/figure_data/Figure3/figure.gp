@@ -1,9 +1,11 @@
 reset session
-set term postscript eps enhanced color size 18, 11.69
-set output 'notebooks/results/figure_data/Figure3/figure.eps'
+set term epslatex color size 18, 11.69 font ',10' standalone
+set output 'notebooks/results/figure_data/Figure3/figure.tex'
+# set term pngcairo enhanced color size 1800, 1169
+# set output 'notebooks/results/figure_data/Figure3/figure.png'
 
 # font sizes
-set font 'Computer Modern Roman,8'
+set font 'Computer Modern Roman,20'
 set tics font ',24'
 set title font ',32'
 set label font ',28'
@@ -22,15 +24,16 @@ set autoscale
 set multiplot layout 3,4
 
 ## PANEL A
+set label 2 at screen 0.02, 0.98 '{\Huge A}'
 set lmargin at screen 0.05
 set rmargin at screen 0.2
 set tmargin at screen 1.0-0.05
 
-set xlabel 'Input' offset 0,-2.5
-set ylabel 'Output' offset -2,0
+set xlabel '{\Large Input}' 
+set ylabel '{\Large Output}'
 
-set format y "10^{%L}"
-set format x "10^{%L}"
+set format y "$10^{%L}$"
+set format x "$10^{%L}$"
 set xtics offset 0,-0.5
 
 set logscale x
@@ -38,7 +41,7 @@ set logscale y
 
 set tics nomirror
 
-set title 'Litr L1'
+set title '{\huge Litr L1}'
 set size ratio 1
 
 plot \
@@ -48,13 +51,14 @@ plot \
      [0.1:10] 0.66 w l dashtype 2 lc "blue" lw 5 title 'OL'
 
 
-set xlabel 'Output' offset 0, -2.5
-set ylabel 'Input' offset -2, 0
+set xlabel '{\Large Output}' 
+set ylabel '{\Large Input}'
 
 set lmargin at screen 0.2+0.05
 set rmargin at screen 0.4
 
-set title 'Amer F1'
+set title '{\huge Amer F1}'
+set xrange [1.0:10.0]
 
 plot \
      'notebooks/results/figure_data/Figure2/DH5alpha_pAN_Amer_f1_scatter.dat' using 3:2 ls 1 notitle, \
@@ -64,11 +68,12 @@ plot \
 
 unset logscale x
 unset logscale y
+unset xrange
 
 
 ## PANEL B
 load 'notebooks/results/figure_data/Figure3/compat_map_style.gp'
-
+set label 3 at screen 0.47, 0.98 '{\Huge B}'
 set lmargin at screen 0.4+0.1
 set rmargin at screen 0.75
 set bmargin at screen 0.65
@@ -76,10 +81,10 @@ set bmargin at screen 0.65
 
 set datafile separator comma
 
-set xlabel 'Input Gate' offset 0, -4.5
-set ylabel 'Output Gate' offset -5
+set xlabel '{\Large Input Gate}'
+set ylabel '{\Large Output Gate}'
 unset colorbox
-set title 'Any Backbone'
+set title '{\huge Any Backbone}'
 plot \
      'notebooks/results/figure_data/Figure3/B/compat_matrix_DH5alpha_Strain.dat' matrix rowheaders columnheaders using 1:2:3 with image notitle
 
@@ -87,42 +92,35 @@ set ylabel ''
 set colorbox
 set lmargin at screen 0.75
 
-set title 'pAN Only'
+set title '{\huge pAN Only}'
 plot 'notebooks/results/figure_data/Figure3/B/compat_matrix_DH5alpha_+_pAN_Context.dat' matrix rowheaders columnheaders using 1:2:3 with image notitle
 
 
-# ## FORMULA IMG
-# set lmargin 0.075
-# set rmargin 0.075+0.175+0.05+0.175
-# set bmargin 0.6
-# set tmargin 0.7
-# set size ratio -1
-# unset key
-# unset xlabel
-# unset ylabel
-# unset title
-# unset tics
-# plot 'formula.png' binary filetype=png with rgbimage notitle
+## formula
+set label 1 at screen 0.23, screen 0.6 '{\huge $\textrm{Score} = min \left( ln \left( \frac{IL_B}{OL_A} \right) \; , ln \left(\frac{OH_A}{IH_B} \right) \right)$}'
 
 ## PANEL C
 set multiplot next
 set multiplot next
 
+set label 4 at screen 0.07, 0.53 '{\Huge C}'
 set bmargin at screen 0.1
 set lmargin at screen 0.1
 set rmargin at screen 0.5
 set tmargin at screen 0.5
-set ylabel 'Output Gate' offset -7
+set ylabel '{\Large Output Gate}'
 
-set xlabel 'Input Gate' offset 0, -4
+set xlabel '{\Large Input Gate}'
 set title ''
 plot 'notebooks/results/figure_data/Figure3/C/compat_matrix_All_Strains.dat' matrix rowheaders columnheaders using 1:2:3 with image notitle
+
 
 ## PANEL D
 set palette maxcolors 256
 set cblabel ''
 set cbtics format '%.1f'
 
+set label 5 at screen 0.57, 0.53 '{\Huge D}'
 set lmargin at screen 0.5+0.1
 set bmargin at screen 0.1
 unset xlabel
