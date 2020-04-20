@@ -1,26 +1,46 @@
-### Dockerised Notebook
+# Reconfigurable genetic inverters using contextual dependencies
 
-Get Docker https://docs.docker.com/engine/docker-overview/
+This repository contains the codes used in the manuscript.
+  
+## Obtaining the code
+
 Get git https://git-scm.com/
 `git clone https://github.com/lgrozinger/pyolin.git`
 `cd pyolin`
 
-Build once with `./docker_build.sh`
-Run every time with `./docker_notebook_run.sh <PATH/TO/DATA/DIR>`
-Point your web browser at the URL jupyter gives on stdout.
+### Dependencies
 
-### Un-dockerised Notebook
+These dependencies are often found in the official package repositories for nix systems.
 
-Install Python3.6 or newer. 
-Install Jupyter.
-`git clone https://github.com/lgrozinger/pyolin.git`
-Run the notebook.
+## Required
+Get Python3.6+ https://www.python.org/downloads/release/python-380/
+
+## Optional (for plotting)
+Get gnuplot 5+ http://www.gnuplot.info/
+Get texlive https://www.tug.org/texlive/ (or equivalent LaTeX)
+Get imagemagick https://imagemagick.org/index.php
+
+on debian-based systems these dependencies are available from the official package repositories, and can be installed with:
+
+`apt-get update && apt-get install python3 python3-pip gnuplot texlive-base texlive-fonts-recommended imagemagick`
+
+the required python packages can then be installed with
+
+`python3 -m pip install --upgrade pip && python3 -m pip install jupyter pandas scipy matplotlib similaritymeasures seaborn`
+
+### OR
+
+A Dockerfile is provided for convenience:
+
+Get Docker https://docs.docker.com/engine/docker-overview/
+
+Build once with `docker build -t pyolin .`
+Run with `docker run -it -v "$(pwd)":/pyolin pyolin /bin/bash`
+
+## Running the code
+
+after `cd pyolin`, running `python3 produce_figures.py full-update` will do the analysis from the manuscript and produce the plots found there.
+
+The code can also be used as a python package. See https://github.com/lgrozinger/pyolin/blob/master/notebooks/example.ipynb for example usage.
 
 ### Data Files
-
-Scripts expect flow cyto .csv files, with a certain naming convention, which follows the conventions in the UCF files.
-
-`cd <PATH/TO/CSV/DATAFILES/>`
-`mkdir <PATH/TO/PYOLIN/data> ; ./<PATH/TO/PYOLIN/file_standardise.sh <PATH/TO/PYOLIN/data>`
-
-Should sort them out and put new files in `<PATH/TO/PYOLIN/data>` directory.
