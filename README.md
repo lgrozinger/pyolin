@@ -13,12 +13,12 @@ Get git https://git-scm.com/
 These dependencies are often found in the official package repositories for nix systems.
 
 ## Required
-Get Python3.6+ https://www.python.org/downloads/release/python-380/
+- Get Python3.6+ https://www.python.org/downloads/release/python-380/
 
 ## Optional (for plotting)
-Get gnuplot 5+ http://www.gnuplot.info/
-Get texlive https://www.tug.org/texlive/ (or equivalent LaTeX)
-Get imagemagick https://imagemagick.org/index.php
+- Get gnuplot 5+ http://www.gnuplot.info/
+- Get texlive https://www.tug.org/texlive/ (or equivalent LaTeX)
+- Get imagemagick https://imagemagick.org/index.php
 
 on debian-based systems these dependencies are available from the official package repositories, and can be installed with:
 
