@@ -15,7 +15,7 @@ set cbtics offset 1
 set size ratio 1
 unset xlabel
 unset ylabel
-set bmargin at screen 0.2
+set bmargin at screen 0.25
 set lmargin at screen 0.1
 prefix=home.'similarity_matrix_'
 n=strlen(ARG1)

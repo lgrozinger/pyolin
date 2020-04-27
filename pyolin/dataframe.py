@@ -1,4 +1,4 @@
-import requests
+import pandas
 
 from pyolin.gate import Gate
 
@@ -13,8 +13,15 @@ def remove_emptys(df):
 
 
 class GateData:
-    def __init__(self, pandas_dataframe):
+    def __init__(self, pandas_dataframe, x='iptg', y='rrpu'):
         self.df = remove_emptys(pandas_dataframe)
+        self.defaultx = x
+        self.defaulty = y
+
+    @classmethod
+    def from_csv(cls, filepath):
+        raw = pandas.read_csv(filepath)
+        return cls(raw)
 
     def __getitem__(self, key):
         if isinstance(key, slice):
@@ -55,7 +62,15 @@ class GateData:
         else:
             raise TypeError
 
-    def get_gate_curve(self, strain, backbone, plasmid, x='iptg', y='rrpu'):
+    def __iter__(self):
+        return iter(self[::])
+
+    def get_gate_curve(self, strain, backbone, plasmid, x=None, y=None):
+        if x is None:
+            x = self.defaultx
+        if y is None:
+            y = self.defaulty
+
         view = self.df[(self.df.strain == strain) &
                        (self.df.backbone == backbone) &
                        (self.df.plasmid == plasmid)]
