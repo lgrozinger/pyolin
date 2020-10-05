@@ -7,6 +7,8 @@ import seaborn
 import numpy
 import pandas
 import matplotlib.pyplot as plt
+import operator as op
+from functools import reduce
 
 
 def gate_drop_context(gate_namestring):
@@ -143,6 +145,27 @@ def all_paths(gates):
     return results
 
 
+def nCr(n, r):
+    r = min(r, n-r)
+    if r < 0:
+        return 0
+    numer = reduce(op.mul, range(n, n-r, -1), 1)
+    denom = reduce(op.mul, range(1, r+1), 1)
+    return numer // denom
+
+
+def possible_pairs(gates):
+    """Returns the number of possible pairs for the set of gates."""
+    npairs = nCr(len(gates), 2) * 2
+    repressors = set([g.repressor for g in gates])
+
+    for repressor in repressors:
+        nsame = len([1 for g in gates if g.repressor == repressor])
+        npairs -= nCr(nsame, 2) * 2
+
+    return npairs
+
+
 def analyse(gates, label):
     summary_filename = f"results/summary_results_{label}.txt"
     score_data_filename = f"results/score_table_{label}_valid_gates_only.csv"
@@ -160,16 +183,20 @@ def analyse(gates, label):
             plt.close()
 
         print(f"Valid gates {len(valid_gates)}/{len(gates)}.", file=s)
+        print('\n'.join([g.name for g in valid_gates]), file=s)
 
         score_results = score_table(valid_gates)
         compat_results = compatibility_table(valid_gates)
         score_results.to_csv(score_data_filename)
         compat_results.to_csv(compat_data_filename)
 
+        possible = possible_pairs(gates)
+        print(f"There are {possible} possible pairings", file=s)
         count = sum(sum(compat_results.to_numpy()))
-        print(f"There are {count} compatible pairs of gates.", file=s)
+        print(f"There are {count} compatible pairings.", file=s)
         count = sum(sum(reduced_compatibility_table(valid_gates).to_numpy()))
-        print(f"There are {count} (reduced) compatible pairs of gates.", file=s)
+        print(f"There are {count} (reduced) compatible pairings.", file=s)
+        print(f"Compatible percentage: {count * 100 / possible}%", file=s)
 
         print(f"Gate compatibility: {compat_data_filename}", file=s)
         plt.figure()  # ensures new plot

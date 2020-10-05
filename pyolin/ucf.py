@@ -60,7 +60,7 @@ def gate_medians(ucf, name):
 
     return medians
 
-def all_names(ucf):
+def all_gates(ucf):
     gates = collections(ucf, "gates")
     names = []
     for gate in gates:
@@ -68,14 +68,17 @@ def all_names(ucf):
 
     return names
 
-class UCF:
 
-    def __init__(self, ucf_filename):
-        self._data = from_ucf(ucf_filename)
+class UCF:
+    def __init__(self, ucf_filename=None):
+        if ucf_filename is not None:
+            self._data = from_ucf(ucf_filename)
+        else:
+            self._data = {}
 
     @property
     def names(self):
-        return all_names(self._data)
+        return all_gates(self._data)
 
     def collections(self, collection_name):
         return collections(self._data, collection_name)
@@ -92,11 +95,15 @@ class UCF:
     def __contains__(self, item):
         return item in self.names
 
+    def add_collection(self, name, **kwargs):
+        kwargs["collection"] = name
+        self._data.append(kwargs)
+
 
 class UCFGate(Gate):
 
     def __init__(self, ucf, gate_name):
-        assert gate_name in all_names(ucf)
+        assert gate_name in all_gates(ucf)
         self._name = gate_name
         self._params = params(ucf, gate_name)
         self._cytodata = cytometry(ucf, gate_name)["cytometry_data"]

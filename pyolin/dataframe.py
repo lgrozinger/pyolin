@@ -53,6 +53,9 @@ class GateData:
         else:
             raise TypeError
 
+    def __iter__(self):
+        return iter(self[::])
+
     def get_gate_curve(self, strain, backbone, plasmid, x='iptg', y='rrpu'):
         view = self.df[(self.df.strain == strain) &
                        (self.df.backbone == backbone) &
@@ -101,7 +104,7 @@ class GateData:
         return self.df.strain.drop_duplicates()
 
     @property
-    def plasmids(self):
+    def gates(self):
         return self.df.plasmid.drop_duplicates()
 
     @property
@@ -111,3 +114,5 @@ class GateData:
     @property
     def contexts(self):
         return [name for name, _ in self.df.groupby(['strain', 'backbone'])]
+
+    def to_ucf(self, filename

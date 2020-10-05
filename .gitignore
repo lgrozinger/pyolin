@@ -12,3 +12,6 @@ notebooks/.ipynb_checkpoints/*
 !**/**/*.sh
 !gates2.csv
 !gates.csv
+!results/sbol/genbank.zip
+!results/sbol/fasta.zip
+!results/sbol/*.xml

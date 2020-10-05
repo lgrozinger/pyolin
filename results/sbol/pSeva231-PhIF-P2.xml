@@ -1,0 +1,884 @@
+<?xml version="1.0" ?>
+<rdf:RDF xmlns:sys-bio="http://sys-bio.org#" xmlns:sbol="http://sbols.org/v2#" xmlns:genbank="http://www.ncbi.nlm.nih.gov/genbank#" xmlns:gbConv="http://sbols.org/genBankConversion#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:om="http://www.ontology-of-units-of-measure.org/resource/om-2/" xmlns:prov="http://www.w3.org/ns/prov#">
+  <sbol:Sequence rdf:about="http://examples.org/JX560328_seq/1">
+    <sbol:displayId>JX560328_seq</sbol:displayId>
+    <sbol:elements>ttaatTAAAACACCCCTTGTATTACTGTTTATGTAAGCAGACAGTTTTATTGTTCATGATGATATATTTTTATCTTGTGCAATGTACATCAGAGATTTTGAGACACAAGGAGAACGATCGTTGGCTGTGTTGACAATTAATCATCGGCTCGTATAATGTGTGGAATTGTGAGCGCTCACAATTAGCGGTCAACGCATGTGCTTTGCGTTCTGATGAGACAGTGATGTCGAAACCGCCTCTACAAATAATTTTGTTTAAGGAGCTATGGACTATGTTTGAAAGGCTGAAATACTAGATGGCACGTACCCCGAGCCGTAGCAGCATTGGTAGCCTGCGTAGTCCGCATACCCATAAAGCAATTCTGACCAGCACCATTGAAATCCTGAAAGAATGTGGTTATAGCGGTCTGAGCATTGAAAGCGTTGCACGTCGTGCCGGTGCAAGCAAACCGACCATTTATCGTTGGTGGACCAATAAAGCAGCACTGATTGCCGAAGTGTATGAAAATGAAAGCGAACAGGTGCGTAAATTTCCGGATCTGGGTAGCTTTAAAGCCGATCTGGATTTTCTGCTGCGTAATCTGTGGAAAGTTTGGCGTGAAACCATTTGTGGTGAAGCATTTCGTTGTGTTATTGCAGAAGCACAGCTGGACCCTGCAACCCTGACCCAGCTGAAAGATCAGTTTATGGAACGTCGTCGTGAGATGCCGAAAAAACTGGTTGAAAATGCCATTAGCAATGGTGAACTGCCGAAAGATACCAATCGTGAACTGCTGCTGGATATGATTTTTGGTTTTTGTTGGTATCGCCTGCTGACCGAACAGCTGACCGTTGAACAGGATATTGAAGAATTTACCTTCCTGCTGATTAATGGTGTTTGTCCGGGTACACAGCGTTAAGGAAACACAGAAAAAAGCCCGCACCTGACAGTGCGGGCTTTTTTTTTCGACCAAAGGTACTCGACGTACGGTGGAATCTGATTCGTTACCAATTGACATGATACGAAACGTACCGTATCGTTAAGGTAGCTGTCACCGGATGTGCTTTCCGGTCTGATGAGTCCGTGAGGACGAAACAGCCTCTACAAATAATTTTGTTTAATACTAGAGAAAGAGGGGAAATACTAGATGGTGAGCAAGGGCGAGGAGCTGTTCACCGGGGTGGTGCCCATCCTGGTCGAGCTGGACGGCGACGTAAACGGCCACAAGTTCAGCGTGTCCGGCGAGGGCGAGGGCGATGCCACCTACGGCAAGCTGACCCTGAAGTTCATCTGCACCACAGGCAAGCTGCCCGTGCCCTGGCCCACCCTCGTGACCACCTTCGGCTACGGCCTGCAATGCTTCGCCCGCTACCCCGACCACATGAAGCTGCACGACTTCTTCAAGTCCGCCATGCCCGAAGGCTACGTCCAGGAGCGCACCATCTTCTTCAAGGACGACGGCAACTACAAGACCCGCGCCGAGGTGAAGTTCGAGGGCGACACCCTGGTGAACCGCATCGAGCTGAAGGGCATCGACTTCAAGGAGGACGGCAACATCCTGGGGCACAAGCTGGAGTACAACTACAACAGCCACAACGTCTATATCATGGCCGACAAGCAGAAGAACGGCATCAAGGTGAACTTCAAGATCCGCCACAACATCGAGGACGGCAGCGTGCAGCTCGCCGACCACTACCAGCAGAACACCCCAATCGGCGACGGCCCCGTGCTGCTGCCCGACAACCACTACCTTAGCTACCAGTCCGCCCTGAGCAAAGACCCCAACGAGAAGCGCGATCACATGGTCCTGCTGGAGTTCGTGACCGCCGCCGGGATCACTCTCGGCATGGACGAGCTGTACAAGTAACTCGGTACCAAATTCCAGAAAAGAGGCCTCCCGAAAGGGGGGCCTTTTTTCGTTTTGGTCCAATGGCGGCGCGCCATCGAATGGCGCAAAACCTTTCGCGGTATGGCATGATAGCGCCCGGAAGAGAGTCAATTCAGGGTGGTGAATATGAAACCAGTAACGTTATACGATGTCGCAGAGTATGCCGGTGTCTCTTATCAGACCGTTTCCCGCGTGGTGAACCAGGCCAGCCACGTTTCTGCGAAAACGCGGGAAAAAGTGGAAGCGGCGATGGCGGAGCTGAATTACATTCCCAACCGCGTGGCACAACAACTGGCGGGCAAACAGTCGTTGCTGATTGGCGTTGCCACCTCCAGTCTGGCCCTGCACGCGCCGTCGCAAATTGTCGCGGCGATTAAATCTCGCGCCGATCAACTGGGTGCCAGCGTGGTGGTGTCGATGGTAGAACGAAGCGGCGTCGAAGCCTGTAAAGCGGCGGTGCACAATCTTCTCGCGCAACGCGTCAGTGGGCTGATCATTAACTATCCGCTGGATGACCAGGATGCCATTGCTGTGGAAGCTGCCTGCACTAATGTTCCGGCGTTATTTCTTGATGTCTCTGACCAGACACCCATCAACAGTATTATTTTCTCCCATGAGGACGGTACGCGACTGGGCGTGGAGCATCTGGTCGCATTGGGTCACCAGCAAATCGCGCTGTTAGCGGGCCCATTAAGTTCTGTCTCGGCGCGTCTGCGTCTGGCTGGCTGGCATAAATATCTCACTCGCAATCAAATTCAGCCGATAGCGGAACGGGAAGGCGACTGGAGTGCCATGTCCGGTTTTCAACAAACCATGCAAATGCTGAATGAGGGCATCGTTCCCACTGCGATGCTGGTTGCCAACGATCAGATGGCGCTGGGCGCAATGCGCGCCATTACCGAGTCCGGGCTGCGCGTTGGTGCGGATATCTCGGTAGTGGGATACGACGATACCGAAGATAGCTCATGTTATATCCCGCCGTTAACCACCATCAAACAGGATTTTCGCCTGCTGGGGCAAACCAGCGTGGACCGCTTGCTGCAACTCTCTCAGGGCCAGGCGGTGAAGGGCAATCAGCTGTTGCCAGTCTCACTGGTGAAAAGAAAAACCACCCTGGCGCCCAATACGCAAACCGCCTCTCCCCGCGCGTTGGCCGATTCATTAATGCAGCTGGCACGACAGGTTTCCCGACTGGAAAGCGGGCAGTGATAATCCAGGAGGAAAAAAATGTCCAGATTAGATAAAAGTAAAGTGATTAACAGCGCATTAGAGCTGCTTAATGAGGTCGGAATCGAAGGTTTAACAACCCGTAAACTCGCCCAGAAGCTAGGTGTAGAGCAGCCTACATTGTATTGGCATGTAAAAAATAAGCGGGCTTTGCTCGACGCCTTAGCCATTGAGATGTTAGATAGGCACCATACTCACTTTTGCCCTTTAGAAGGGGAAAGCTGGCAAGATTTTTTACGTAATAACGCTAAAAGTTTTAGATGTGCTTTACTAAGTCATCGCGATGGAGCAAAAGTACATTTAGGTACACGGCCTACAGAAAAACAGTATGAAACTCTCGAAAATCAATTAGCCTTTTTATGCCAACAAGGTTTTTCACTAGAGAATGCATTATATGCACTCAGCGCTGTGGGGCATTTTACTTTAGGTTGCGTATTGGAAGATCAAGAGCATCAAGTCGCTAAAGAAGAAAGGGAAACACCTACTACTGATAGTATGCCGCCATTATTACGACAAGCTATCGAATTATTTGATCACCAAGGTGCAGAGCCAGCCTTCTTATTCGGCCTTGAATTGATCATATGCGGATTAGAAAAACAACTTAAATGTGAAAGTGGGTCCTAATAATTGGTAACGAATCAGACAATTGACGGCTCGAGGGAGTAGCATAGGGTTTGCAGAATCCCTGCTTCGTCCATTTGACAGGCACATTATGCATCGATGATAAGCTGTCAAACATGAGCAGATCCTCTACGCCGGACGActagtcttggactcctgttgatagatccagtaatgacctcagaactccatctggatttgttcagaacgctcggttgccgccgggcgttttttattggtgagaatccaggggtccccaataattacgatttaaatttgtgtctcaaaatctctgatgttacattgcacaagataaaaatatatcatcatgaacaataaaactgtctgcttacataaacagtaatacaaggggtgttatgagccatattcagcgtgaaacgagctgtagccgtccgcgtctgaacagcaacatggatgcggatctgtatggctataaatgggcgcgtgataacgtgggtcagagcggcgcgaccatttatcgtctgtatggcaaaccggatgcgccggaactgtttctgaaacatggcaaaggcagcgtggcgaacgatgtgaccgatgaaatggtgcgtctgaactggctgaccgaatttatgccgctgccgaccattaaacattttattcgcaccccggatgatgcgtggctgctgaccaccgcgattccgggcaaaaccgcgtttcaggtgctggaagaatatccggatagcggcgaaaacattgtggatgcgctggccgtgtttctgcgtcgtctgcatagcattccggtgtgcaactgcccgtttaacagcgatcgtgtgtttcgtctggcccaggcgcagagccgtatgaacaacggcctggtggatgcgagcgattttgatgatgaacgtaacggctggccggtggaacaggtgtggaaagaaatgcataaactgctgccgtttagcccggatagcgtggtgacccacggcgattttagcctggataacctgattttcgatgaaggcaaactgattggctgcattgatgtgggccgtgtgggcattgcggatcgttatcaggatctggccattctgtggaactgcctgggcgaatttagcccgagcctgcaaaaacgtctgtttcagaaatatggcattgataatccggatatgaacaaactgcaatttcatctgatgctggatgaatttttctaataattaattggaccgcggtccgcgcgttgtccttttccgctgcataaccctgcttcggggtcattatagcgattttttcggtatatccatcctttttcgcacgatatacaggattttgccaaagggttcgtgtagactttccttggtgtatccaacggcgtcagccgggcaggataggtgaagtaggcccacccgcgagcgggtgttccttcttcactgtcccttattcgcacctggcggtgctcaacgggaatcctgctctgcgaggctggccgtaggccggccctaccggcgcggcagcgttacccgtgtcggcggctccaacggctcgccatcgtccagaaaacacggctcatcgggcatcggcaggcgctgctgcccgcgccgttcccattcctccgtttcggtcaaggctggcaggtctggttccatgcccggaatgccgggctggctgggcggctcctcgccggggccggtcggtagttgctgctcgcccggatacagggtcgggatgcggcgcaggtcgccatgccccaacagcgattcgtcctggtcgtcgtgatcaaccaccacggcggcactgaacaccgacaggcgcaactggtcgcggggctggccccacgccacgcggtcattgaccacgtaggccgacacggtgccggggccgttgagcttcacgacggagatccagcgctcggccaccaagtccttgactgcgtattggaccgtccgcaaagaacgtccgatgagcttggaaagtgtcttctggctgaccaccacggcgttctggtggcccatctgcgccacgaggtgatgcagcagcattgccgccgtgggtttcctcgcaataagcccggcccacgcctcatgcgctttgcgttccgtttgcacccagtgaccgggcttgttcttggcttgaatgccgatttctctggactgcgtggccatgcttatctccatgcggtaggggtgccgcacggttgcggcaccatgcgcaatcagctgcaacttttcggcagcgcgacaacaattatgcgttgcgtaaaagtggcagtcaattacagattttctttaacctacgcaatgagctattgcggggggtgccgcaatgagctgttgcgtaccccccttttttaagttgttgatttttaagtctttcgcatttcgccctatatctagttctttggtgcccaaagaagggcacccctgcggggttcccccacgccttcggcgcggctccccctccggcaaaaagtggcccctccggggcttgttgatcgactgcgcggccttcggccttgcccaaggtggcgctgcccccttggaacccccgcactcgccgccgtgaggctcggggggcaggcgggcgggcttcgcccttcgactgcccccactcgcataggcttgggtcgttccaggcgcgtcaaggccaagccgctgcgcggtcgctgcgcgagccttgacccgccttccacttggtgtccaaccggcaagcgaagcgcgcaggccgcaggccggaggcttttccccagagaaaattaaaaaaattgatggggcaaggccgcaggccgcgcagttggagccggtgggtatgtggtcgaaggctgggtagccggtgggcaatccctgtggtcaagctcgtgggcaggcgcagcctgtccatcagcttgtccagcagggttgtccacgggccgagcgaagcgagccagccggtggccgctcgcggccatcgtccacatatccacgggctggcaagggagcgcagcgaccgcgcagggcgaagcccggagagcaagcccgtagggggggcgcgcccagctgtctagggcggcggatttgtcctactcaggagagcgttcaccgacaaacaacagataaaacgaaaggcccagtctttcgactgagcctttcgttttatttgatgcct</sbol:elements>
+    <sbol:encoding rdf:resource="http://www.chem.qmul.ac.uk/iubmb/misc/naseq.html"/>
+    <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328_seq"/>
+    <sbol:version>1</sbol:version>
+  </sbol:Sequence>
+  <sbol:ComponentDefinition rdf:about="http://examples.org/JX560328/1">
+    <dcterms:description>Cloning vector pSEVA231, complete sequence.</dcterms:description>
+    <sbol:displayId>JX560328</sbol:displayId>
+    <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328"/>
+    <sbol:role rdf:resource="http://identifiers.org/so/SO:0000804"/>
+    <sbol:sequence rdf:resource="http://examples.org/JX560328_seq/1"/>
+    <sbol:type rdf:resource="http://www.biopax.org/release/biopax-level3.owl#DnaRegion"/>
+    <sbol:type rdf:resource="http://identifiers.org/so/SO:0000988"/>
+    <sbol:version>1</sbol:version>
+    <genbank:GInumber>GI:410073675</genbank:GInumber>
+    <genbank:comment>##Assembly-Data-START## Assembly Method       :: ApE v. v2.0.40 Sequencing Technology :: Sanger dideoxy sequencing ##Assembly-Data-END##</genbank:comment>
+    <genbank:date>02-OCT-2014</genbank:date>
+    <genbank:division>SYN</genbank:division>
+    <genbank:keywords>.</genbank:keywords>
+    <genbank:locus>JX560328</genbank:locus>
+    <genbank:molecule>DNA</genbank:molecule>
+    <genbank:organism>Cloning vector pSEVA231 other sequences; artificial sequences; vectors.</genbank:organism>
+    <genbank:source>Cloning vector pSEVA231</genbank:source>
+    <sbol:sequenceAnnotation>
+      <sbol:SequenceAnnotation rdf:about="http://examples.org/JX560328/annotation3/1">
+        <dcterms:title>neomycin phosphotransferase</dcterms:title>
+        <gbConv:codon_start>1</gbConv:codon_start>
+        <gbConv:db_xref>GI:410073676</gbConv:db_xref>
+        <gbConv:gene>neo</gbConv:gene>
+        <gbConv:product>neomycin phosphotransferase</gbConv:product>
+        <gbConv:protein_id>AFV59774.1</gbConv:protein_id>
+        <gbConv:transl_table>11</gbConv:transl_table>
+        <gbConv:translation>MSHIQRETSCSRPRLNSNMDADLYGYKWARDNVGQSGATIYRLYGKPDAPELFLKHGKGSVANDVTDEMVRLNWLTEFMPLPTIKHFIRTPDDAWLLTTAIPGKTAFQVLEEYPDSGENIVDALAVFLRRLHSIPVCNCPFNSDRVFRLAQAQSRMNNGLVDASDFDDERNGWPVEQVWKEMHKLLPFSPDSVVTHGDFSLDNLIFDEGKLIGCIDVGRVGIADRYQDLAILWNCLGEFSPSLQKRLFQKYGIDNPDMNKLQFHLMLDEFF</gbConv:translation>
+        <sbol:displayId>annotation3</sbol:displayId>
+        <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation3"/>
+        <sbol:role rdf:resource="http://identifiers.org/so/SO:0000316"/>
+        <sbol:version>1</sbol:version>
+        <sbol:location>
+          <sbol:Range rdf:about="http://examples.org/JX560328/annotation3/range/1">
+            <sbol:displayId>range</sbol:displayId>
+            <sbol:end>4908</sbol:end>
+            <sbol:orientation rdf:resource="http://sbols.org/v2#inline"/>
+            <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation3/range"/>
+            <sbol:start>4093</sbol:start>
+            <sbol:version>1</sbol:version>
+          </sbol:Range>
+        </sbol:location>
+      </sbol:SequenceAnnotation>
+    </sbol:sequenceAnnotation>
+    <sbol:sequenceAnnotation>
+      <sbol:SequenceAnnotation rdf:about="http://examples.org/JX560328/annotation13/1">
+        <dcterms:title>pTac Minimal Promoter</dcterms:title>
+        <gbConv:ApEinfo_fwdcolor>#00ff00</gbConv:ApEinfo_fwdcolor>
+        <gbConv:ApEinfo_graphicformat>arrow_data {{0 1 2 0 0 -1} {} 0} width 5 offset 0</gbConv:ApEinfo_graphicformat>
+        <gbConv:ApEinfo_revcolor>#00ff00</gbConv:ApEinfo_revcolor>
+        <gbConv:dnas_title>pTac Minimal Promoter</gbConv:dnas_title>
+        <gbConv:label>pTac Minimal Promoter</gbConv:label>
+        <sbol:displayId>annotation13</sbol:displayId>
+        <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation13"/>
+        <sbol:role rdf:resource="http://identifiers.org/so/SO:0001411"/>
+        <sbol:version>1</sbol:version>
+        <sbol:location>
+          <sbol:Range rdf:about="http://examples.org/JX560328/annotation13/range/1">
+            <sbol:displayId>range</sbol:displayId>
+            <sbol:end>183</sbol:end>
+            <sbol:orientation rdf:resource="http://sbols.org/v2#inline"/>
+            <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation13/range"/>
+            <sbol:start>165</sbol:start>
+            <sbol:version>1</sbol:version>
+          </sbol:Range>
+        </sbol:location>
+      </sbol:SequenceAnnotation>
+    </sbol:sequenceAnnotation>
+    <sbol:sequenceAnnotation>
+      <sbol:SequenceAnnotation rdf:about="http://examples.org/JX560328/annotation34/1">
+        <dcterms:title>Tetracycline resistance gene, reverse primer</dcterms:title>
+        <gbConv:dnas_title>Tet-R</gbConv:dnas_title>
+        <gbConv:featureType>PCR_primer</gbConv:featureType>
+        <gbConv:note>Tetracycline resistance gene, reverse primer</gbConv:note>
+        <gbConv:primer>GGCGAGTTTACGGGTTGTTA</gbConv:primer>
+        <sbol:displayId>annotation34</sbol:displayId>
+        <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation34"/>
+        <sbol:role rdf:resource="http://identifiers.org/so/SO:0000110"/>
+        <sbol:version>1</sbol:version>
+        <sbol:location>
+          <sbol:Range rdf:about="http://examples.org/JX560328/annotation34/range/1">
+            <sbol:displayId>range</sbol:displayId>
+            <sbol:end>3187</sbol:end>
+            <sbol:orientation rdf:resource="http://sbols.org/v2#reverseComplement"/>
+            <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation34/range"/>
+            <sbol:start>3168</sbol:start>
+            <sbol:version>1</sbol:version>
+          </sbol:Range>
+        </sbol:location>
+      </sbol:SequenceAnnotation>
+    </sbol:sequenceAnnotation>
+    <sbol:sequenceAnnotation>
+      <sbol:SequenceAnnotation rdf:about="http://examples.org/JX560328/annotation20/1">
+        <dcterms:title>pre-pPhlF random DNA</dcterms:title>
+        <gbConv:ApEinfo_fwdcolor>#ff80ff</gbConv:ApEinfo_fwdcolor>
+        <gbConv:ApEinfo_graphicformat>arrow_data {{0 1 2 0 0 -1} {} 0} width 5 offset 0</gbConv:ApEinfo_graphicformat>
+        <gbConv:ApEinfo_revcolor>#ff80ff</gbConv:ApEinfo_revcolor>
+        <gbConv:dnas_title>pre-pPhlF random DNA</gbConv:dnas_title>
+        <gbConv:label>pre-pPhlF random DNA</gbConv:label>
+        <sbol:displayId>annotation20</sbol:displayId>
+        <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation20"/>
+        <sbol:role rdf:resource="http://identifiers.org/so/SO:0001411"/>
+        <sbol:version>1</sbol:version>
+        <sbol:location>
+          <sbol:Range rdf:about="http://examples.org/JX560328/annotation20/range/1">
+            <sbol:displayId>range</sbol:displayId>
+            <sbol:end>974</sbol:end>
+            <sbol:orientation rdf:resource="http://sbols.org/v2#inline"/>
+            <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation20/range"/>
+            <sbol:start>960</sbol:start>
+            <sbol:version>1</sbol:version>
+          </sbol:Range>
+        </sbol:location>
+      </sbol:SequenceAnnotation>
+    </sbol:sequenceAnnotation>
+    <sbol:sequenceAnnotation>
+      <sbol:SequenceAnnotation rdf:about="http://examples.org/JX560328/annotation15/1">
+        <dcterms:title>J-hairpin</dcterms:title>
+        <gbConv:ApEinfo_fwdcolor>cyan</gbConv:ApEinfo_fwdcolor>
+        <gbConv:ApEinfo_graphicformat>arrow_data {{0 1 2 0 0 -1} {} 0} width 5 offset 0</gbConv:ApEinfo_graphicformat>
+        <gbConv:ApEinfo_revcolor>cyan</gbConv:ApEinfo_revcolor>
+        <gbConv:dnas_title>J-hairpin</gbConv:dnas_title>
+        <gbConv:label>J-hairpin</gbConv:label>
+        <sbol:displayId>annotation15</sbol:displayId>
+        <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation15"/>
+        <sbol:role rdf:resource="http://identifiers.org/so/SO:0001411"/>
+        <sbol:version>1</sbol:version>
+        <sbol:location>
+          <sbol:Range rdf:about="http://examples.org/JX560328/annotation15/range/1">
+            <sbol:displayId>range</sbol:displayId>
+            <sbol:end>258</sbol:end>
+            <sbol:orientation rdf:resource="http://sbols.org/v2#inline"/>
+            <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation15/range"/>
+            <sbol:start>236</sbol:start>
+            <sbol:version>1</sbol:version>
+          </sbol:Range>
+        </sbol:location>
+      </sbol:SequenceAnnotation>
+    </sbol:sequenceAnnotation>
+    <sbol:sequenceAnnotation>
+      <sbol:SequenceAnnotation rdf:about="http://examples.org/JX560328/annotation27/1">
+        <dcterms:title>For distinguishing EGFP variants, reverse primer</dcterms:title>
+        <gbConv:dnas_title>EXFP-R</gbConv:dnas_title>
+        <gbConv:featureType>PCR_primer</gbConv:featureType>
+        <gbConv:note>For distinguishing EGFP variants, reverse primer</gbConv:note>
+        <gbConv:primer>GTCTTGTAGTTGCCGTCGTC</gbConv:primer>
+        <sbol:displayId>annotation27</sbol:displayId>
+        <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation27"/>
+        <sbol:role rdf:resource="http://identifiers.org/so/SO:0000110"/>
+        <sbol:version>1</sbol:version>
+        <sbol:location>
+          <sbol:Range rdf:about="http://examples.org/JX560328/annotation27/range/1">
+            <sbol:displayId>range</sbol:displayId>
+            <sbol:end>1452</sbol:end>
+            <sbol:orientation rdf:resource="http://sbols.org/v2#reverseComplement"/>
+            <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation27/range"/>
+            <sbol:start>1433</sbol:start>
+            <sbol:version>1</sbol:version>
+          </sbol:Range>
+        </sbol:location>
+      </sbol:SequenceAnnotation>
+    </sbol:sequenceAnnotation>
+    <sbol:sequenceAnnotation>
+      <sbol:SequenceAnnotation rdf:about="http://examples.org/JX560328/annotation9/1">
+        <dcterms:title>strong E. coli promoter; hybrid between the trp and lac%CAUV5 promoters</dcterms:title>
+        <gbConv:dnas_title>tac promoter</gbConv:dnas_title>
+        <gbConv:note>strong E. coli promoter; hybrid between the trp and lac%CAUV5 promoters</gbConv:note>
+        <sbol:displayId>annotation9</sbol:displayId>
+        <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation9"/>
+        <sbol:role rdf:resource="http://identifiers.org/so/SO:0000167"/>
+        <sbol:version>1</sbol:version>
+        <sbol:location>
+          <sbol:Range rdf:about="http://examples.org/JX560328/annotation9/range/1">
+            <sbol:displayId>range</sbol:displayId>
+            <sbol:end>151</sbol:end>
+            <sbol:orientation rdf:resource="http://sbols.org/v2#inline"/>
+            <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation9/range"/>
+            <sbol:start>136</sbol:start>
+            <sbol:version>1</sbol:version>
+          </sbol:Range>
+        </sbol:location>
+      </sbol:SequenceAnnotation>
+    </sbol:sequenceAnnotation>
+    <sbol:sequenceAnnotation>
+      <sbol:SequenceAnnotation rdf:about="http://examples.org/JX560328/annotation16/1">
+        <dcterms:title>P2 RBS</dcterms:title>
+        <gbConv:ApEinfo_fwdcolor>#ff80c0</gbConv:ApEinfo_fwdcolor>
+        <gbConv:ApEinfo_graphicformat>arrow_data {{0 1 2 0 0 -1} {} 0} width 5 offset 0</gbConv:ApEinfo_graphicformat>
+        <gbConv:ApEinfo_revcolor>#ff80c0</gbConv:ApEinfo_revcolor>
+        <gbConv:dnas_title>P2 RBS</gbConv:dnas_title>
+        <gbConv:label>P2 RBS</gbConv:label>
+        <sbol:displayId>annotation16</sbol:displayId>
+        <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation16"/>
+        <sbol:role rdf:resource="http://identifiers.org/so/SO:0001411"/>
+        <sbol:version>1</sbol:version>
+        <sbol:location>
+          <sbol:Range rdf:about="http://examples.org/JX560328/annotation16/range/1">
+            <sbol:displayId>range</sbol:displayId>
+            <sbol:end>295</sbol:end>
+            <sbol:orientation rdf:resource="http://sbols.org/v2#inline"/>
+            <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation16/range"/>
+            <sbol:start>259</sbol:start>
+            <sbol:version>1</sbol:version>
+          </sbol:Range>
+        </sbol:location>
+      </sbol:SequenceAnnotation>
+    </sbol:sequenceAnnotation>
+    <sbol:sequenceAnnotation>
+      <sbol:SequenceAnnotation rdf:about="http://examples.org/JX560328/annotation14/1">
+        <dcterms:title>RiboJ53</dcterms:title>
+        <gbConv:ApEinfo_fwdcolor>#8000ff</gbConv:ApEinfo_fwdcolor>
+        <gbConv:ApEinfo_graphicformat>arrow_data {{0 1 2 0 0 -1} {} 0} width 5 offset 0</gbConv:ApEinfo_graphicformat>
+        <gbConv:ApEinfo_revcolor>#8000ff</gbConv:ApEinfo_revcolor>
+        <gbConv:dnas_title>RiboJ53</gbConv:dnas_title>
+        <gbConv:label>RiboJ53</gbConv:label>
+        <sbol:displayId>annotation14</sbol:displayId>
+        <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation14"/>
+        <sbol:role rdf:resource="http://identifiers.org/so/SO:0001411"/>
+        <sbol:version>1</sbol:version>
+        <sbol:location>
+          <sbol:Range rdf:about="http://examples.org/JX560328/annotation14/range/1">
+            <sbol:displayId>range</sbol:displayId>
+            <sbol:end>258</sbol:end>
+            <sbol:orientation rdf:resource="http://sbols.org/v2#inline"/>
+            <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation14/range"/>
+            <sbol:start>184</sbol:start>
+            <sbol:version>1</sbol:version>
+          </sbol:Range>
+        </sbol:location>
+      </sbol:SequenceAnnotation>
+    </sbol:sequenceAnnotation>
+    <sbol:sequenceAnnotation>
+      <sbol:SequenceAnnotation rdf:about="http://examples.org/JX560328/annotation31/1">
+        <dcterms:title>LacI</dcterms:title>
+        <gbConv:ApEinfo_fwdcolor>#ffff80</gbConv:ApEinfo_fwdcolor>
+        <gbConv:ApEinfo_graphicformat>arrow_data {{0 1 2 0 0 -1} {} 0} width 5 offset 0</gbConv:ApEinfo_graphicformat>
+        <gbConv:ApEinfo_revcolor>#ffff80</gbConv:ApEinfo_revcolor>
+        <gbConv:dnas_title>LacI</gbConv:dnas_title>
+        <gbConv:label>LacI</gbConv:label>
+        <sbol:displayId>annotation31</sbol:displayId>
+        <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation31"/>
+        <sbol:role rdf:resource="http://identifiers.org/so/SO:0000704"/>
+        <sbol:version>1</sbol:version>
+        <sbol:location>
+          <sbol:Range rdf:about="http://examples.org/JX560328/annotation31/range/1">
+            <sbol:displayId>range</sbol:displayId>
+            <sbol:end>3076</sbol:end>
+            <sbol:orientation rdf:resource="http://sbols.org/v2#inline"/>
+            <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation31/range"/>
+            <sbol:start>1994</sbol:start>
+            <sbol:version>1</sbol:version>
+          </sbol:Range>
+        </sbol:location>
+      </sbol:SequenceAnnotation>
+    </sbol:sequenceAnnotation>
+    <sbol:sequenceAnnotation>
+      <sbol:SequenceAnnotation rdf:about="http://examples.org/JX560328/annotation30/1">
+        <dcterms:title>PLac (up until -1)</dcterms:title>
+        <gbConv:ApEinfo_fwdcolor>cyan</gbConv:ApEinfo_fwdcolor>
+        <gbConv:ApEinfo_graphicformat>arrow_data {{0 1 2 0 0 -1} {} 0} width 5 offset 0</gbConv:ApEinfo_graphicformat>
+        <gbConv:ApEinfo_revcolor>cyan</gbConv:ApEinfo_revcolor>
+        <gbConv:dnas_title>PLac (up until -1)</gbConv:dnas_title>
+        <gbConv:label>PLac (up until -1)</gbConv:label>
+        <sbol:displayId>annotation30</sbol:displayId>
+        <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation30"/>
+        <sbol:role rdf:resource="http://identifiers.org/so/SO:0001411"/>
+        <sbol:version>1</sbol:version>
+        <sbol:location>
+          <sbol:Range rdf:about="http://examples.org/JX560328/annotation30/range/1">
+            <sbol:displayId>range</sbol:displayId>
+            <sbol:end>1965</sbol:end>
+            <sbol:orientation rdf:resource="http://sbols.org/v2#inline"/>
+            <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation30/range"/>
+            <sbol:start>1912</sbol:start>
+            <sbol:version>1</sbol:version>
+          </sbol:Range>
+        </sbol:location>
+      </sbol:SequenceAnnotation>
+    </sbol:sequenceAnnotation>
+    <sbol:sequenceAnnotation>
+      <sbol:SequenceAnnotation rdf:about="http://examples.org/JX560328/annotation2/1">
+        <dcterms:title>neo</dcterms:title>
+        <gbConv:gene>neo</gbConv:gene>
+        <sbol:displayId>annotation2</sbol:displayId>
+        <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation2"/>
+        <sbol:role rdf:resource="http://identifiers.org/so/SO:0000704"/>
+        <sbol:version>1</sbol:version>
+        <sbol:location>
+          <sbol:Range rdf:about="http://examples.org/JX560328/annotation2/range/1">
+            <sbol:displayId>range</sbol:displayId>
+            <sbol:end>4908</sbol:end>
+            <sbol:orientation rdf:resource="http://sbols.org/v2#inline"/>
+            <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation2/range"/>
+            <sbol:start>4093</sbol:start>
+            <sbol:version>1</sbol:version>
+          </sbol:Range>
+        </sbol:location>
+      </sbol:SequenceAnnotation>
+    </sbol:sequenceAnnotation>
+    <sbol:sequenceAnnotation>
+      <sbol:SequenceAnnotation rdf:about="http://examples.org/JX560328/annotation35/1">
+        <dcterms:title>Native AraC terminator 2snp</dcterms:title>
+        <gbConv:ApEinfo_fwdcolor>#804000</gbConv:ApEinfo_fwdcolor>
+        <gbConv:ApEinfo_graphicformat>arrow_data {{0 1 2 0 0 -1} {} 0} width 5 offset 0</gbConv:ApEinfo_graphicformat>
+        <gbConv:ApEinfo_revcolor>#804000</gbConv:ApEinfo_revcolor>
+        <gbConv:dnas_title>Native AraC terminator 2snp</gbConv:dnas_title>
+        <gbConv:label>Native AraC terminator 2snp</gbConv:label>
+        <sbol:displayId>annotation35</sbol:displayId>
+        <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation35"/>
+        <sbol:role rdf:resource="http://identifiers.org/so/SO:0001411"/>
+        <sbol:version>1</sbol:version>
+        <sbol:location>
+          <sbol:Range rdf:about="http://examples.org/JX560328/annotation35/range/1">
+            <sbol:displayId>range</sbol:displayId>
+            <sbol:end>3838</sbol:end>
+            <sbol:orientation rdf:resource="http://sbols.org/v2#inline"/>
+            <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation35/range"/>
+            <sbol:start>3722</sbol:start>
+            <sbol:version>1</sbol:version>
+          </sbol:Range>
+        </sbol:location>
+      </sbol:SequenceAnnotation>
+    </sbol:sequenceAnnotation>
+    <sbol:sequenceAnnotation>
+      <sbol:SequenceAnnotation rdf:about="http://examples.org/JX560328/annotation21/1">
+        <dcterms:title>PhlF promoter</dcterms:title>
+        <gbConv:ApEinfo_fwdcolor>#00ff00</gbConv:ApEinfo_fwdcolor>
+        <gbConv:ApEinfo_graphicformat>arrow_data {{0 1 2 0 0 -1} {} 0} width 5 offset 0</gbConv:ApEinfo_graphicformat>
+        <gbConv:ApEinfo_revcolor>#00ff00</gbConv:ApEinfo_revcolor>
+        <gbConv:dnas_title>PhlF promoter</gbConv:dnas_title>
+        <gbConv:label>PhlF promoter</gbConv:label>
+        <sbol:displayId>annotation21</sbol:displayId>
+        <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation21"/>
+        <sbol:role rdf:resource="http://identifiers.org/so/SO:0001411"/>
+        <sbol:version>1</sbol:version>
+        <sbol:location>
+          <sbol:Range rdf:about="http://examples.org/JX560328/annotation21/range/1">
+            <sbol:displayId>range</sbol:displayId>
+            <sbol:end>1025</sbol:end>
+            <sbol:orientation rdf:resource="http://sbols.org/v2#inline"/>
+            <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation21/range"/>
+            <sbol:start>975</sbol:start>
+            <sbol:version>1</sbol:version>
+          </sbol:Range>
+        </sbol:location>
+      </sbol:SequenceAnnotation>
+    </sbol:sequenceAnnotation>
+    <sbol:sequenceAnnotation>
+      <sbol:SequenceAnnotation rdf:about="http://examples.org/JX560328/annotation4/1">
+        <dcterms:title>oriT</dcterms:title>
+        <gbConv:note>oriT</gbConv:note>
+        <sbol:displayId>annotation4</sbol:displayId>
+        <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation4"/>
+        <sbol:role rdf:resource="http://identifiers.org/so/SO:0001411"/>
+        <sbol:version>1</sbol:version>
+        <sbol:location>
+          <sbol:Range rdf:about="http://examples.org/JX560328/annotation4/range/1">
+            <sbol:displayId>range</sbol:displayId>
+            <sbol:end>5185</sbol:end>
+            <sbol:orientation rdf:resource="http://sbols.org/v2#inline"/>
+            <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation4/range"/>
+            <sbol:start>4940</sbol:start>
+            <sbol:version>1</sbol:version>
+          </sbol:Range>
+        </sbol:location>
+      </sbol:SequenceAnnotation>
+    </sbol:sequenceAnnotation>
+    <sbol:sequenceAnnotation>
+      <sbol:SequenceAnnotation rdf:about="http://examples.org/JX560328/annotation19/1">
+        <dcterms:title>ECK120033737</dcterms:title>
+        <gbConv:ApEinfo_fwdcolor>#ff0000</gbConv:ApEinfo_fwdcolor>
+        <gbConv:ApEinfo_graphicformat>arrow_data {{0 1 2 0 0 -1} {} 0} width 5 offset 0</gbConv:ApEinfo_graphicformat>
+        <gbConv:ApEinfo_revcolor>#ff0000</gbConv:ApEinfo_revcolor>
+        <gbConv:dnas_title>ECK120033737</gbConv:dnas_title>
+        <gbConv:label>ECK120033737</gbConv:label>
+        <sbol:displayId>annotation19</sbol:displayId>
+        <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation19"/>
+        <sbol:role rdf:resource="http://identifiers.org/so/SO:0001411"/>
+        <sbol:version>1</sbol:version>
+        <sbol:location>
+          <sbol:Range rdf:about="http://examples.org/JX560328/annotation19/range/1">
+            <sbol:displayId>range</sbol:displayId>
+            <sbol:end>955</sbol:end>
+            <sbol:orientation rdf:resource="http://sbols.org/v2#inline"/>
+            <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation19/range"/>
+            <sbol:start>899</sbol:start>
+            <sbol:version>1</sbol:version>
+          </sbol:Range>
+        </sbol:location>
+      </sbol:SequenceAnnotation>
+    </sbol:sequenceAnnotation>
+    <sbol:sequenceAnnotation>
+      <sbol:SequenceAnnotation rdf:about="http://examples.org/JX560328/annotation12/1">
+        <dcterms:title>pTac Minimal Promoter</dcterms:title>
+        <gbConv:ApEinfo_fwdcolor>#00ff00</gbConv:ApEinfo_fwdcolor>
+        <gbConv:ApEinfo_graphicformat>arrow_data {{0 1 2 0 0 -1} {} 0} width 5 offset 0</gbConv:ApEinfo_graphicformat>
+        <gbConv:ApEinfo_revcolor>#00ff00</gbConv:ApEinfo_revcolor>
+        <gbConv:dnas_title>pTac Minimal Promoter</gbConv:dnas_title>
+        <gbConv:label>pTac Minimal Promoter</gbConv:label>
+        <sbol:displayId>annotation12</sbol:displayId>
+        <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation12"/>
+        <sbol:role rdf:resource="http://identifiers.org/so/SO:0001411"/>
+        <sbol:version>1</sbol:version>
+        <sbol:location>
+          <sbol:Range rdf:about="http://examples.org/JX560328/annotation12/range/1">
+            <sbol:displayId>range</sbol:displayId>
+            <sbol:end>182</sbol:end>
+            <sbol:orientation rdf:resource="http://sbols.org/v2#reverseComplement"/>
+            <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation12/range"/>
+            <sbol:start>164</sbol:start>
+            <sbol:version>1</sbol:version>
+          </sbol:Range>
+        </sbol:location>
+      </sbol:SequenceAnnotation>
+    </sbol:sequenceAnnotation>
+    <sbol:sequenceAnnotation>
+      <sbol:SequenceAnnotation rdf:about="http://examples.org/JX560328/annotation0/1">
+        <dcterms:title>Cloning vector pSEVA231</dcterms:title>
+        <gbConv:db_xref>taxon:1246706</gbConv:db_xref>
+        <gbConv:dnas_title>pSeva231-PhIF-P2</gbConv:dnas_title>
+        <gbConv:mol_type>other DNA</gbConv:mol_type>
+        <gbConv:organism>Cloning vector pSEVA231</gbConv:organism>
+        <sbol:displayId>annotation0</sbol:displayId>
+        <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation0"/>
+        <sbol:role rdf:resource="http://identifiers.org/so/SO:0002206"/>
+        <sbol:version>1</sbol:version>
+        <sbol:location>
+          <sbol:Range rdf:about="http://examples.org/JX560328/annotation0/range/1">
+            <sbol:displayId>range</sbol:displayId>
+            <sbol:end>6835</sbol:end>
+            <sbol:orientation rdf:resource="http://sbols.org/v2#inline"/>
+            <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation0/range"/>
+            <sbol:start>1</sbol:start>
+            <sbol:version>1</sbol:version>
+          </sbol:Range>
+        </sbol:location>
+      </sbol:SequenceAnnotation>
+    </sbol:sequenceAnnotation>
+    <sbol:sequenceAnnotation>
+      <sbol:SequenceAnnotation rdf:about="http://examples.org/JX560328/annotation24/1">
+        <dcterms:title>J-hairpin</dcterms:title>
+        <gbConv:ApEinfo_fwdcolor>cyan</gbConv:ApEinfo_fwdcolor>
+        <gbConv:ApEinfo_graphicformat>arrow_data {{0 1 2 0 0 -1} {} 0} width 5 offset 0</gbConv:ApEinfo_graphicformat>
+        <gbConv:ApEinfo_revcolor>cyan</gbConv:ApEinfo_revcolor>
+        <gbConv:dnas_title>J-hairpin</gbConv:dnas_title>
+        <gbConv:label>J-hairpin</gbConv:label>
+        <sbol:displayId>annotation24</sbol:displayId>
+        <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation24"/>
+        <sbol:role rdf:resource="http://identifiers.org/so/SO:0001411"/>
+        <sbol:version>1</sbol:version>
+        <sbol:location>
+          <sbol:Range rdf:about="http://examples.org/JX560328/annotation24/range/1">
+            <sbol:displayId>range</sbol:displayId>
+            <sbol:end>1100</sbol:end>
+            <sbol:orientation rdf:resource="http://sbols.org/v2#inline"/>
+            <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation24/range"/>
+            <sbol:start>1078</sbol:start>
+            <sbol:version>1</sbol:version>
+          </sbol:Range>
+        </sbol:location>
+      </sbol:SequenceAnnotation>
+    </sbol:sequenceAnnotation>
+    <sbol:sequenceAnnotation>
+      <sbol:SequenceAnnotation rdf:about="http://examples.org/JX560328/annotation25/1">
+        <dcterms:title>EYFP</dcterms:title>
+        <gbConv:codon_start>1</gbConv:codon_start>
+        <gbConv:dnas_title>enhanced YFP</gbConv:dnas_title>
+        <gbConv:label>EYFP</gbConv:label>
+        <gbConv:note>mammalian codon-optimized</gbConv:note>
+        <gbConv:product>enhanced YFP</gbConv:product>
+        <gbConv:translation>MVSKGEELFTGVVPILVELDGDVNGHKFSVSGEGEGDATYGKLTLKFICTTGKLPVPWPTLVTTFGYGLQCFARYPDHMKLHDFFKSAMPEGYVQERTIFFKDDGNYKTRAEVKFEGDTLVNRIELKGIDFKEDGNILGHKLEYNYNSHNVYIMADKQKNGIKVNFKIRHNIEDGSVQLADHYQQNTPIGDGPVLLPDNHYLSYQSALSKDPNEKRDHMVLLEFVTAAGITLGMDELYK</gbConv:translation>
+        <sbol:displayId>annotation25</sbol:displayId>
+        <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation25"/>
+        <sbol:role rdf:resource="http://identifiers.org/so/SO:0000316"/>
+        <sbol:version>1</sbol:version>
+        <sbol:location>
+          <sbol:Range rdf:about="http://examples.org/JX560328/annotation25/range/1">
+            <sbol:displayId>range</sbol:displayId>
+            <sbol:end>1846</sbol:end>
+            <sbol:orientation rdf:resource="http://sbols.org/v2#inline"/>
+            <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation25/range"/>
+            <sbol:start>1127</sbol:start>
+            <sbol:version>1</sbol:version>
+          </sbol:Range>
+        </sbol:location>
+      </sbol:SequenceAnnotation>
+    </sbol:sequenceAnnotation>
+    <sbol:sequenceAnnotation>
+      <sbol:SequenceAnnotation rdf:about="http://examples.org/JX560328/annotation28/1">
+        <dcterms:title>EGFP, forward primer</dcterms:title>
+        <gbConv:dnas_title>EGFP-C</gbConv:dnas_title>
+        <gbConv:featureType>PCR_primer</gbConv:featureType>
+        <gbConv:note>EGFP, forward primer</gbConv:note>
+        <gbConv:primer>CATGGTCCTGCTGGAGTTCGTG</gbConv:primer>
+        <sbol:displayId>annotation28</sbol:displayId>
+        <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation28"/>
+        <sbol:role rdf:resource="http://identifiers.org/so/SO:0000110"/>
+        <sbol:version>1</sbol:version>
+        <sbol:location>
+          <sbol:Range rdf:about="http://examples.org/JX560328/annotation28/range/1">
+            <sbol:displayId>range</sbol:displayId>
+            <sbol:end>1801</sbol:end>
+            <sbol:orientation rdf:resource="http://sbols.org/v2#inline"/>
+            <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation28/range"/>
+            <sbol:start>1780</sbol:start>
+            <sbol:version>1</sbol:version>
+          </sbol:Range>
+        </sbol:location>
+      </sbol:SequenceAnnotation>
+    </sbol:sequenceAnnotation>
+    <sbol:sequenceAnnotation>
+      <sbol:SequenceAnnotation rdf:about="http://examples.org/JX560328/annotation23/1">
+        <dcterms:title>hammerhead ribozyme from the tobacco ringspot virus satellite RNA (Khvorova et al., 2003)</dcterms:title>
+        <gbConv:dnas_title>sTRSV HHRz</gbConv:dnas_title>
+        <gbConv:note>hammerhead ribozyme from the tobacco ringspot virus satellite RNA (Khvorova et al., 2003)</gbConv:note>
+        <sbol:displayId>annotation23</sbol:displayId>
+        <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation23"/>
+        <sbol:role rdf:resource="http://identifiers.org/so/SO:0000673"/>
+        <sbol:version>1</sbol:version>
+        <sbol:location>
+          <sbol:Range rdf:about="http://examples.org/JX560328/annotation23/range/1">
+            <sbol:displayId>range</sbol:displayId>
+            <sbol:end>1077</sbol:end>
+            <sbol:orientation rdf:resource="http://sbols.org/v2#inline"/>
+            <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation23/range"/>
+            <sbol:start>1028</sbol:start>
+            <sbol:version>1</sbol:version>
+          </sbol:Range>
+        </sbol:location>
+      </sbol:SequenceAnnotation>
+    </sbol:sequenceAnnotation>
+    <sbol:sequenceAnnotation>
+      <sbol:SequenceAnnotation rdf:about="http://examples.org/JX560328/annotation7/1">
+        <dcterms:title>T1</dcterms:title>
+        <gbConv:note>T1</gbConv:note>
+        <gbConv:regulatory_class>terminator</gbConv:regulatory_class>
+        <sbol:displayId>annotation7</sbol:displayId>
+        <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation7"/>
+        <sbol:role rdf:resource="http://identifiers.org/so/SO:0005836"/>
+        <sbol:version>1</sbol:version>
+        <sbol:location>
+          <sbol:Range rdf:about="http://examples.org/JX560328/annotation7/range/1">
+            <sbol:displayId>range</sbol:displayId>
+            <sbol:end>6834</sbol:end>
+            <sbol:orientation rdf:resource="http://sbols.org/v2#inline"/>
+            <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation7/range"/>
+            <sbol:start>6730</sbol:start>
+            <sbol:version>1</sbol:version>
+          </sbol:Range>
+        </sbol:location>
+      </sbol:SequenceAnnotation>
+    </sbol:sequenceAnnotation>
+    <sbol:sequenceAnnotation>
+      <sbol:SequenceAnnotation rdf:about="http://examples.org/JX560328/annotation10/1">
+        <dcterms:title>The lac repressor binds to the lac operator to inhibit transcription in E. coli. This inhibition can be relieved by adding lactose or isopropyl-%CE%B2-D-thiogalactopyranoside (IPTG). The symmetric lac operator was optimized for tight binding of lac repressor.</dcterms:title>
+        <gbConv:bound_moiety>lac repressor encoded by lacI</gbConv:bound_moiety>
+        <gbConv:dnas_title>lac operator (symmetric)</gbConv:dnas_title>
+        <gbConv:featureType>protein_bind</gbConv:featureType>
+        <gbConv:note>The lac repressor binds to the lac operator to inhibit transcription in E. coli. This inhibition can be relieved by adding lactose or isopropyl-%CE%B2-D-thiogalactopyranoside (IPTG). The symmetric lac operator was optimized for tight binding of lac repressor.</gbConv:note>
+        <sbol:displayId>annotation10</sbol:displayId>
+        <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation10"/>
+        <sbol:role rdf:resource="http://identifiers.org/so/SO:0000110"/>
+        <sbol:version>1</sbol:version>
+        <sbol:location>
+          <sbol:Range rdf:about="http://examples.org/JX560328/annotation10/range/1">
+            <sbol:displayId>range</sbol:displayId>
+            <sbol:end>183</sbol:end>
+            <sbol:orientation rdf:resource="http://sbols.org/v2#inline"/>
+            <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation10/range"/>
+            <sbol:start>164</sbol:start>
+            <sbol:version>1</sbol:version>
+          </sbol:Range>
+        </sbol:location>
+      </sbol:SequenceAnnotation>
+    </sbol:sequenceAnnotation>
+    <sbol:sequenceAnnotation>
+      <sbol:SequenceAnnotation rdf:about="http://examples.org/JX560328/annotation22/1">
+        <dcterms:title>RiboJ</dcterms:title>
+        <gbConv:ApEinfo_fwdcolor>#ffff80</gbConv:ApEinfo_fwdcolor>
+        <gbConv:ApEinfo_graphicformat>arrow_data {{0 1 2 0 0 -1} {} 0} width 5 offset 0</gbConv:ApEinfo_graphicformat>
+        <gbConv:ApEinfo_revcolor>#ffff80</gbConv:ApEinfo_revcolor>
+        <gbConv:dnas_title>RiboJ</gbConv:dnas_title>
+        <gbConv:label>RiboJ</gbConv:label>
+        <sbol:displayId>annotation22</sbol:displayId>
+        <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation22"/>
+        <sbol:role rdf:resource="http://identifiers.org/so/SO:0001411"/>
+        <sbol:version>1</sbol:version>
+        <sbol:location>
+          <sbol:Range rdf:about="http://examples.org/JX560328/annotation22/range/1">
+            <sbol:displayId>range</sbol:displayId>
+            <sbol:end>1100</sbol:end>
+            <sbol:orientation rdf:resource="http://sbols.org/v2#inline"/>
+            <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation22/range"/>
+            <sbol:start>1026</sbol:start>
+            <sbol:version>1</sbol:version>
+          </sbol:Range>
+        </sbol:location>
+      </sbol:SequenceAnnotation>
+    </sbol:sequenceAnnotation>
+    <sbol:sequenceAnnotation>
+      <sbol:SequenceAnnotation rdf:about="http://examples.org/JX560328/annotation17/1">
+        <dcterms:title>Tx fn pre-RBS random DNA</dcterms:title>
+        <gbConv:ApEinfo_fwdcolor>#ff8080</gbConv:ApEinfo_fwdcolor>
+        <gbConv:ApEinfo_graphicformat>arrow_data {{0 1 2 0 0 -1} {} 0} width 5 offset 0</gbConv:ApEinfo_graphicformat>
+        <gbConv:ApEinfo_revcolor>#ff8080</gbConv:ApEinfo_revcolor>
+        <gbConv:dnas_title>Tx fn pre-RBS random DNA</gbConv:dnas_title>
+        <gbConv:label>Tx fn pre-RBS random DNA</gbConv:label>
+        <sbol:displayId>annotation17</sbol:displayId>
+        <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation17"/>
+        <sbol:role rdf:resource="http://identifiers.org/so/SO:0001411"/>
+        <sbol:version>1</sbol:version>
+        <sbol:location>
+          <sbol:Range rdf:about="http://examples.org/JX560328/annotation17/range/1">
+            <sbol:displayId>range</sbol:displayId>
+            <sbol:end>277</sbol:end>
+            <sbol:orientation rdf:resource="http://sbols.org/v2#inline"/>
+            <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation17/range"/>
+            <sbol:start>263</sbol:start>
+            <sbol:version>1</sbol:version>
+          </sbol:Range>
+        </sbol:location>
+      </sbol:SequenceAnnotation>
+    </sbol:sequenceAnnotation>
+    <sbol:sequenceAnnotation>
+      <sbol:SequenceAnnotation rdf:about="http://examples.org/JX560328/annotation18/1">
+        <dcterms:title>PhlF</dcterms:title>
+        <gbConv:ApEinfo_fwdcolor>#0000ff</gbConv:ApEinfo_fwdcolor>
+        <gbConv:ApEinfo_graphicformat>arrow_data {{0 1 2 0 0 -1} {} 0} width 5 offset 0</gbConv:ApEinfo_graphicformat>
+        <gbConv:ApEinfo_revcolor>#0000ff</gbConv:ApEinfo_revcolor>
+        <gbConv:dnas_title>PhlF</gbConv:dnas_title>
+        <gbConv:label>PhlF</gbConv:label>
+        <sbol:displayId>annotation18</sbol:displayId>
+        <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation18"/>
+        <sbol:role rdf:resource="http://identifiers.org/so/SO:0000704"/>
+        <sbol:version>1</sbol:version>
+        <sbol:location>
+          <sbol:Range rdf:about="http://examples.org/JX560328/annotation18/range/1">
+            <sbol:displayId>range</sbol:displayId>
+            <sbol:end>898</sbol:end>
+            <sbol:orientation rdf:resource="http://sbols.org/v2#inline"/>
+            <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation18/range"/>
+            <sbol:start>296</sbol:start>
+            <sbol:version>1</sbol:version>
+          </sbol:Range>
+        </sbol:location>
+      </sbol:SequenceAnnotation>
+    </sbol:sequenceAnnotation>
+    <sbol:sequenceAnnotation>
+      <sbol:SequenceAnnotation rdf:about="http://examples.org/JX560328/annotation33/1">
+        <dcterms:title>tetracycline repressor TetR</dcterms:title>
+        <gbConv:codon_start>1</gbConv:codon_start>
+        <gbConv:dnas_title>TetR</gbConv:dnas_title>
+        <gbConv:gene>tetR%CAfrom transposon Tn10</gbConv:gene>
+        <gbConv:note>TetR binds to the tetracycline operator tetO to inhibit transcription. This inhibition can be relieved by adding tetracycline or doxycycline.</gbConv:note>
+        <gbConv:product>tetracycline repressor TetR</gbConv:product>
+        <gbConv:transl_table>1</gbConv:transl_table>
+        <gbConv:translation>MSRLDKSKVINSALELLNEVGIEGLTTRKLAQKLGVEQPTLYWHVKNKRALLDALAIEMLDRHHTHFCPLEGESWQDFLRNNAKSFRCALLSHRDGAKVHLGTRPTEKQYETLENQLAFLCQQGFSLENALYALSAVGHFTLGCVLEDQEHQVAKEERETPTTDSMPPLLRQAIELFDHQGAEPAFLFGLELIICGLEKQLKCESGS</gbConv:translation>
+        <sbol:displayId>annotation33</sbol:displayId>
+        <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation33"/>
+        <sbol:role rdf:resource="http://identifiers.org/so/SO:0000316"/>
+        <sbol:version>1</sbol:version>
+        <sbol:location>
+          <sbol:Range rdf:about="http://examples.org/JX560328/annotation33/range/1">
+            <sbol:displayId>range</sbol:displayId>
+            <sbol:end>3718</sbol:end>
+            <sbol:orientation rdf:resource="http://sbols.org/v2#inline"/>
+            <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation33/range"/>
+            <sbol:start>3095</sbol:start>
+            <sbol:version>1</sbol:version>
+          </sbol:Range>
+        </sbol:location>
+      </sbol:SequenceAnnotation>
+    </sbol:sequenceAnnotation>
+    <sbol:sequenceAnnotation>
+      <sbol:SequenceAnnotation rdf:about="http://examples.org/JX560328/annotation5/1">
+        <dcterms:title>rep</dcterms:title>
+        <gbConv:gene>rep</gbConv:gene>
+        <sbol:displayId>annotation5</sbol:displayId>
+        <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation5"/>
+        <sbol:role rdf:resource="http://identifiers.org/so/SO:0000704"/>
+        <sbol:version>1</sbol:version>
+        <sbol:location>
+          <sbol:Range rdf:about="http://examples.org/JX560328/annotation5/range/1">
+            <sbol:displayId>range</sbol:displayId>
+            <sbol:end>5856</sbol:end>
+            <sbol:orientation rdf:resource="http://sbols.org/v2#reverseComplement"/>
+            <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation5/range"/>
+            <sbol:start>5194</sbol:start>
+            <sbol:version>1</sbol:version>
+          </sbol:Range>
+        </sbol:location>
+      </sbol:SequenceAnnotation>
+    </sbol:sequenceAnnotation>
+    <sbol:sequenceAnnotation>
+      <sbol:SequenceAnnotation rdf:about="http://examples.org/JX560328/annotation6/1">
+        <dcterms:title>replication protein</dcterms:title>
+        <gbConv:codon_start>1</gbConv:codon_start>
+        <gbConv:db_xref>GI:410073677</gbConv:db_xref>
+        <gbConv:gene>rep</gbConv:gene>
+        <gbConv:product>replication protein</gbConv:product>
+        <gbConv:protein_id>AFV59775.1</gbConv:protein_id>
+        <gbConv:transl_table>11</gbConv:transl_table>
+        <gbConv:translation>MATQSREIGIQAKNKPGHWVQTERKAHEAWAGLIARKPTAAMLLHHLVAQMGHQNAVVVSQKTLSKLIGRSLRTVQYAVKDLVAERWISVVKLNGPGTVSAYVVNDRVAWGQPRDQLRLSVFSAAVVVDHDDQDESLLGHGDLRRIPTLYPGEQQLPTGPGEEPPSQPGIPGMEPDLPALTETEEWERRGQQRLPMPDEPCFLDDGEPLEPPTRVTLPRR</gbConv:translation>
+        <sbol:displayId>annotation6</sbol:displayId>
+        <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation6"/>
+        <sbol:role rdf:resource="http://identifiers.org/so/SO:0000316"/>
+        <sbol:version>1</sbol:version>
+        <sbol:location>
+          <sbol:Range rdf:about="http://examples.org/JX560328/annotation6/range/1">
+            <sbol:displayId>range</sbol:displayId>
+            <sbol:end>5856</sbol:end>
+            <sbol:orientation rdf:resource="http://sbols.org/v2#reverseComplement"/>
+            <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation6/range"/>
+            <sbol:start>5194</sbol:start>
+            <sbol:version>1</sbol:version>
+          </sbol:Range>
+        </sbol:location>
+      </sbol:SequenceAnnotation>
+    </sbol:sequenceAnnotation>
+    <sbol:sequenceAnnotation>
+      <sbol:SequenceAnnotation rdf:about="http://examples.org/JX560328/annotation11/1">
+        <dcterms:title>The lac repressor binds to the lac operator to inhibit transcription in E. coli. This inhibition can be relieved by adding lactose or isopropyl-%CE%B2-D-thiogalactopyranoside (IPTG). The symmetric lac operator was optimized for tight binding of lac repressor.</dcterms:title>
+        <gbConv:bound_moiety>lac repressor encoded by lacI</gbConv:bound_moiety>
+        <gbConv:dnas_title>lac operator (symmetric)</gbConv:dnas_title>
+        <gbConv:featureType>protein_bind</gbConv:featureType>
+        <gbConv:note>The lac repressor binds to the lac operator to inhibit transcription in E. coli. This inhibition can be relieved by adding lactose or isopropyl-%CE%B2-D-thiogalactopyranoside (IPTG). The symmetric lac operator was optimized for tight binding of lac repressor.</gbConv:note>
+        <sbol:displayId>annotation11</sbol:displayId>
+        <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation11"/>
+        <sbol:role rdf:resource="http://identifiers.org/so/SO:0000110"/>
+        <sbol:version>1</sbol:version>
+        <sbol:location>
+          <sbol:Range rdf:about="http://examples.org/JX560328/annotation11/range/1">
+            <sbol:displayId>range</sbol:displayId>
+            <sbol:end>183</sbol:end>
+            <sbol:orientation rdf:resource="http://sbols.org/v2#reverseComplement"/>
+            <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation11/range"/>
+            <sbol:start>164</sbol:start>
+            <sbol:version>1</sbol:version>
+          </sbol:Range>
+        </sbol:location>
+      </sbol:SequenceAnnotation>
+    </sbol:sequenceAnnotation>
+    <sbol:sequenceAnnotation>
+      <sbol:SequenceAnnotation rdf:about="http://examples.org/JX560328/annotation8/1">
+        <dcterms:title>pre-pTac random DNA</dcterms:title>
+        <gbConv:ApEinfo_fwdcolor>cyan</gbConv:ApEinfo_fwdcolor>
+        <gbConv:ApEinfo_graphicformat>arrow_data {{0 1 2 0 0 -1} {} 0} width 5 offset 0</gbConv:ApEinfo_graphicformat>
+        <gbConv:ApEinfo_revcolor>cyan</gbConv:ApEinfo_revcolor>
+        <gbConv:dnas_title>pre-pTac random DNA</gbConv:dnas_title>
+        <gbConv:label>pre-pTac random DNA</gbConv:label>
+        <sbol:displayId>annotation8</sbol:displayId>
+        <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation8"/>
+        <sbol:role rdf:resource="http://identifiers.org/so/SO:0001411"/>
+        <sbol:version>1</sbol:version>
+        <sbol:location>
+          <sbol:Range rdf:about="http://examples.org/JX560328/annotation8/range/1">
+            <sbol:displayId>range</sbol:displayId>
+            <sbol:end>127</sbol:end>
+            <sbol:orientation rdf:resource="http://sbols.org/v2#inline"/>
+            <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation8/range"/>
+            <sbol:start>113</sbol:start>
+            <sbol:version>1</sbol:version>
+          </sbol:Range>
+        </sbol:location>
+      </sbol:SequenceAnnotation>
+    </sbol:sequenceAnnotation>
+    <sbol:sequenceAnnotation>
+      <sbol:SequenceAnnotation rdf:about="http://examples.org/JX560328/annotation32/1">
+        <dcterms:title>LacI, reverse primer</dcterms:title>
+        <gbConv:dnas_title>LacI-R</gbConv:dnas_title>
+        <gbConv:featureType>PCR_primer</gbConv:featureType>
+        <gbConv:note>LacI, reverse primer</gbConv:note>
+        <gbConv:primer>GGCATACTCTGCGACATCGT</gbConv:primer>
+        <sbol:displayId>annotation32</sbol:displayId>
+        <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation32"/>
+        <sbol:role rdf:resource="http://identifiers.org/so/SO:0000110"/>
+        <sbol:version>1</sbol:version>
+        <sbol:location>
+          <sbol:Range rdf:about="http://examples.org/JX560328/annotation32/range/1">
+            <sbol:displayId>range</sbol:displayId>
+            <sbol:end>2032</sbol:end>
+            <sbol:orientation rdf:resource="http://sbols.org/v2#reverseComplement"/>
+            <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation32/range"/>
+            <sbol:start>2013</sbol:start>
+            <sbol:version>1</sbol:version>
+          </sbol:Range>
+        </sbol:location>
+      </sbol:SequenceAnnotation>
+    </sbol:sequenceAnnotation>
+    <sbol:sequenceAnnotation>
+      <sbol:SequenceAnnotation rdf:about="http://examples.org/JX560328/annotation1/1">
+        <dcterms:title>T0</dcterms:title>
+        <gbConv:note>T0</gbConv:note>
+        <gbConv:regulatory_class>terminator</gbConv:regulatory_class>
+        <sbol:displayId>annotation1</sbol:displayId>
+        <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation1"/>
+        <sbol:role rdf:resource="http://identifiers.org/so/SO:0005836"/>
+        <sbol:version>1</sbol:version>
+        <sbol:location>
+          <sbol:Range rdf:about="http://examples.org/JX560328/annotation1/range/1">
+            <sbol:displayId>range</sbol:displayId>
+            <sbol:end>3965</sbol:end>
+            <sbol:orientation rdf:resource="http://sbols.org/v2#inline"/>
+            <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation1/range"/>
+            <sbol:start>3863</sbol:start>
+            <sbol:version>1</sbol:version>
+          </sbol:Range>
+        </sbol:location>
+      </sbol:SequenceAnnotation>
+    </sbol:sequenceAnnotation>
+    <sbol:sequenceAnnotation>
+      <sbol:SequenceAnnotation rdf:about="http://examples.org/JX560328/annotation29/1">
+        <dcterms:title>L3S2P21 Terminator</dcterms:title>
+        <gbConv:ApEinfo_fwdcolor>#ff0000</gbConv:ApEinfo_fwdcolor>
+        <gbConv:ApEinfo_graphicformat>arrow_data {{0 1 2 0 0 -1} {} 0} width 5 offset 0</gbConv:ApEinfo_graphicformat>
+        <gbConv:ApEinfo_revcolor>#ff0000</gbConv:ApEinfo_revcolor>
+        <gbConv:dnas_title>L3S2P21 Terminator</gbConv:dnas_title>
+        <gbConv:label>L3S2P21 Terminator</gbConv:label>
+        <sbol:displayId>annotation29</sbol:displayId>
+        <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation29"/>
+        <sbol:role rdf:resource="http://identifiers.org/so/SO:0001411"/>
+        <sbol:version>1</sbol:version>
+        <sbol:location>
+          <sbol:Range rdf:about="http://examples.org/JX560328/annotation29/range/1">
+            <sbol:displayId>range</sbol:displayId>
+            <sbol:end>1907</sbol:end>
+            <sbol:orientation rdf:resource="http://sbols.org/v2#inline"/>
+            <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation29/range"/>
+            <sbol:start>1847</sbol:start>
+            <sbol:version>1</sbol:version>
+          </sbol:Range>
+        </sbol:location>
+      </sbol:SequenceAnnotation>
+    </sbol:sequenceAnnotation>
+    <sbol:sequenceAnnotation>
+      <sbol:SequenceAnnotation rdf:about="http://examples.org/JX560328/annotation26/1">
+        <dcterms:title>EGFP, reverse primer</dcterms:title>
+        <gbConv:dnas_title>EGFP-N</gbConv:dnas_title>
+        <gbConv:featureType>PCR_primer</gbConv:featureType>
+        <gbConv:note>EGFP, reverse primer</gbConv:note>
+        <gbConv:primer>CGTCGCCGTCCAGCTCGACCAG</gbConv:primer>
+        <sbol:displayId>annotation26</sbol:displayId>
+        <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation26"/>
+        <sbol:role rdf:resource="http://identifiers.org/so/SO:0000110"/>
+        <sbol:version>1</sbol:version>
+        <sbol:location>
+          <sbol:Range rdf:about="http://examples.org/JX560328/annotation26/range/1">
+            <sbol:displayId>range</sbol:displayId>
+            <sbol:end>1193</sbol:end>
+            <sbol:orientation rdf:resource="http://sbols.org/v2#reverseComplement"/>
+            <sbol:persistentIdentity rdf:resource="http://examples.org/JX560328/annotation26/range"/>
+            <sbol:start>1172</sbol:start>
+            <sbol:version>1</sbol:version>
+          </sbol:Range>
+        </sbol:location>
+      </sbol:SequenceAnnotation>
+    </sbol:sequenceAnnotation>
+    <genbank:reference>
+      <genbank:Reference rdf:about="http://examples.org/JX560328/reference1">
+        <genbank:authors>Silva-Rocha,R., Martinez-Garcia,E., Chavarria,M., Calles,B., Arce-Rodriguez,A., de las Heras,A., Paez-Espino,D., Durante-Rodriguez,G., Kim,J., Nikel,P.I., Platero,R. and de Lorenzo,V.</genbank:authors>
+        <genbank:journal>Submitted (28-AUG-2012) Systems Biology Program, Centro Nacional de Biotecnologia-CSIC, C/ Darwin 3, Campus de Cantoblanco, Madrid, Madrid 28049, Spain</genbank:journal>
+        <genbank:label>2  (bases 1 to 3123)</genbank:label>
+        <genbank:title>Direct Submission</genbank:title>
+      </genbank:Reference>
+    </genbank:reference>
+    <genbank:reference>
+      <genbank:Reference rdf:about="http://examples.org/JX560328/reference0">
+        <genbank:authors>Silva-Rocha,R., Martinez-Garcia,E., Chavarria,M., Calles,B., Arce-Rodriguez,A., de las Heras,A., Paez-Espino,D., Durante-Rodriguez,G., Kim,J., Nikel,P.I., Platero,R. and de Lorenzo,V.</genbank:authors>
+        <genbank:journal>Unpublished</genbank:journal>
+        <genbank:label>1  (bases 1 to 3123)</genbank:label>
+        <genbank:title>The Standard European Vector Architecture (SEVA): a coherent platform for analysis and deployment of complex prokaryotic phenotypes</genbank:title>
+      </genbank:Reference>
+    </genbank:reference>
+  </sbol:ComponentDefinition>
+</rdf:RDF>
