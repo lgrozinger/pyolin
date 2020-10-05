@@ -1,4 +1,4 @@
-load '~/src/gnuplot/gnuplot-palettes/blues.pal'
+load 'notebooks/results/figure_data/Figure3/blues.pal'
 
 set xtics 1 rotate out nomirror
 set ytics 1 out nomirror

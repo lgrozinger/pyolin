@@ -126,13 +126,13 @@ set cblabel ''
 set cbtics format '%.1f'
 
 set lmargin at screen 0.5+0.1
+set rmargin at screen 1.0
 set bmargin at screen 0.1
+set tmargin at screen 0.5
 unset xlabel
 unset ylabel
 set title ''
 plot 'notebooks/results/figure_data/Figure3/D/similarity_matrix_Phif_p1.dat' matrix rowheaders columnheaders using 1:2:3 with image notitle
-
-
 
 
 unset multiplot

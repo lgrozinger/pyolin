@@ -36,5 +36,5 @@ set output 'notebooks/results/figure_data/Figure3/C/All_Strains_compat_map.eps'
 set title 'Compatibility Table for All Strains' font 'Computer Modern Roman,30'
 unset key
 set datafile separator comma
-plot 'notebooks/results/figure_data/Figure3/C/compat_matrix_All_Strains.dat' matrix rowheaders columnheaders using 1:2:3 with image
+plot '/home/campus.ncl.ac.uk/b8051106/my/src/python/pyolin/results/compat_matrix_All_Strains.dat' matrix rowheaders columnheaders using 1:2:3 with image
 set datafile separator

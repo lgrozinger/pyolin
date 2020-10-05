@@ -36,5 +36,5 @@ set output 'notebooks/results/figure_data/Figure3/B/DH5alpha_Strain_compat_map.e
 set title 'Compatibility Table for DH5alpha Strain' font 'Computer Modern Roman,30'
 unset key
 set datafile separator comma
-plot 'notebooks/results/figure_data/Figure3/B/compat_matrix_DH5alpha_Strain.dat' matrix rowheaders columnheaders using 1:2:3 with image
+plot '/home/campus.ncl.ac.uk/b8051106/my/src/python/pyolin/results/compat_matrix_DH5alpha_Strain.dat' matrix rowheaders columnheaders using 1:2:3 with image
 set datafile separator

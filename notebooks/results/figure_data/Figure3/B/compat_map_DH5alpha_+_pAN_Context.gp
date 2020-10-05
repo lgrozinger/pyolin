@@ -36,5 +36,5 @@ set output 'notebooks/results/figure_data/Figure3/B/DH5alpha_+_pAN_Context_compa
 set title 'Compatibility Table for DH5alpha + pAN Context' font 'Computer Modern Roman,30'
 unset key
 set datafile separator comma
-plot 'notebooks/results/figure_data/Figure3/B/compat_matrix_DH5alpha_+_pAN_Context.dat' matrix rowheaders columnheaders using 1:2:3 with image
+plot '/home/campus.ncl.ac.uk/b8051106/my/src/python/pyolin/results/compat_matrix_DH5alpha_+_pAN_Context.dat' matrix rowheaders columnheaders using 1:2:3 with image
 set datafile separator

@@ -1,6 +1,6 @@
 reset session
 set term postscript eps enhanced color size 18, 9
-set output 'notebooks/results/figure_data/Figure2/figure.eps'
+set output 'figures/Figure2/figure.eps'
 
 # font sizes
 set font 'Computer Modern Roman,8'
@@ -47,8 +47,8 @@ set lmargin at screen 0.05+0.25
 
 set title 'DH5alpha pAN'
 plot \
-     'notebooks/results/figure_data/Figure2/DH5alpha_pAN_Litr_l1_scatter.dat' using 2:3 ls 2 notitle,\
-     'notebooks/results/figure_data/Figure2/DH5alpha_pAN_Litr_l1_curve.dat' using 1:2 w l ls 1 title 'Psra R1', \
+     'notebooks/results/figure_data/Figure2/DH5alpha_pAN_Psra_r1_scatter.dat' using 2:3 ls 2 notitle,\
+     'notebooks/results/figure_data/Figure2/DH5alpha_pAN_Psra_r1_curve.dat' using 1:2 w l ls 1 title 'Psra R1', \
      'notebooks/results/figure_data/Figure2/DH5alpha_pAN_Phif_p2_scatter.dat' using 2:3 ls 4 notitle,\
      'notebooks/results/figure_data/Figure2/DH5alpha_pAN_Phif_p2_curve.dat' using 1:2 w l ls 3 title 'Phif P2'
 
@@ -57,16 +57,16 @@ set ylabel ''
 set lmargin at screen 0.05+0.25+0.25
 set title 'DH5alpha pSeva221'
 plot \
-     'notebooks/results/figure_data/Figure2/DH5alpha_pSeva221_Litr_l1_scatter.dat' using 2:3 ls 2 notitle,\
-     'notebooks/results/figure_data/Figure2/DH5alpha_pSeva221_Litr_l1_curve.dat' using 1:2 w l ls 1 notitle, \
+     'notebooks/results/figure_data/Figure2/DH5alpha_pSeva221_Psra_r1_scatter.dat' using 2:3 ls 2 notitle,\
+     'notebooks/results/figure_data/Figure2/DH5alpha_pSeva221_Psra_r1_curve.dat' using 1:2 w l ls 1 notitle, \
      'notebooks/results/figure_data/Figure2/DH5alpha_pSeva221_Phif_p2_scatter.dat' using 2:3 ls 4 notitle,\
      'notebooks/results/figure_data/Figure2/DH5alpha_pSeva221_Phif_p2_curve.dat' using 1:2 w l ls 3 notitle
 
 set lmargin at screen 0.05+0.25+0.25+0.25
 set title 'CC118Lpir pSeva221'
 plot \
-     'notebooks/results/figure_data/Figure2/CC118Lpir_pSeva221_Litr_l1_scatter.dat' using 2:3 ls 2 notitle,\
-     'notebooks/results/figure_data/Figure2/CC118Lpir_pSeva221_Litr_l1_curve.dat' using 1:2 w l ls 1 notitle, \
+     'notebooks/results/figure_data/Figure2/CC118Lpir_pSeva221_Psra_r1_scatter.dat' using 2:3 ls 2 notitle,\
+     'notebooks/results/figure_data/Figure2/CC118Lpir_pSeva221_Psra_r1_curve.dat' using 1:2 w l ls 1 notitle, \
      'notebooks/results/figure_data/Figure2/CC118Lpir_pSeva221_Phif_p2_scatter.dat' using 2:3 ls 4 notitle,\
      'notebooks/results/figure_data/Figure2/CC118Lpir_pSeva221_Phif_p2_curve.dat' using 1:2 w l ls 3 notitle
 
@@ -79,8 +79,8 @@ set lmargin at screen 0.05
 
 set title 'CC118Lpir pSeva231'
 plot \
-     'notebooks/results/figure_data/Figure2/CC118Lpir_pSeva231_Litr_l1_scatter.dat' using 2:3 ls 2 notitle,\
-     'notebooks/results/figure_data/Figure2/CC118Lpir_pSeva231_Litr_l1_curve.dat' using 1:2 w l ls 1 notitle, \
+     'notebooks/results/figure_data/Figure2/CC118Lpir_pSeva231_Psra_r1_scatter.dat' using 2:3 ls 2 notitle,\
+     'notebooks/results/figure_data/Figure2/CC118Lpir_pSeva231_Psra_r1_curve.dat' using 1:2 w l ls 1 notitle, \
      'notebooks/results/figure_data/Figure2/CC118Lpir_pSeva231_Phif_p2_scatter.dat' using 2:3 ls 4 notitle,\
      'notebooks/results/figure_data/Figure2/CC118Lpir_pSeva231_Phif_p2_curve.dat' using 1:2 w l ls 3 notitle
 
@@ -89,24 +89,24 @@ set lmargin at screen 0.05+0.25
 
 set title 'KT2440 pSeva231'
 plot \
-     'notebooks/results/figure_data/Figure2/KT2440_pSeva231_Litr_l1_scatter.dat' using 2:3 ls 2 notitle,\
-     'notebooks/results/figure_data/Figure2/KT2440_pSeva231_Litr_l1_curve.dat' using 1:2 w l ls 1 notitle, \
+     'notebooks/results/figure_data/Figure2/KT2440_pSeva231_Psra_r1_scatter.dat' using 2:3 ls 2 notitle,\
+     'notebooks/results/figure_data/Figure2/KT2440_pSeva231_Psra_r1_curve.dat' using 1:2 w l ls 1 notitle, \
      'notebooks/results/figure_data/Figure2/KT2440_pSeva231_Phif_p2_scatter.dat' using 2:3 ls 4 notitle,\
      'notebooks/results/figure_data/Figure2/KT2440_pSeva231_Phif_p2_curve.dat' using 1:2 w l ls 3 notitle
 
 set lmargin at screen 0.05+0.25+0.25
 set title 'KT2440 pSeva221'
 plot \
-     'notebooks/results/figure_data/Figure2/KT2440_pSeva221_Litr_l1_scatter.dat' using 2:3 ls 2 notitle,\
-     'notebooks/results/figure_data/Figure2/KT2440_pSeva221_Litr_l1_curve.dat' using 1:2 w l ls 1 notitle, \
+     'notebooks/results/figure_data/Figure2/KT2440_pSeva221_Psra_r1_scatter.dat' using 2:3 ls 2 notitle,\
+     'notebooks/results/figure_data/Figure2/KT2440_pSeva221_Psra_r1_curve.dat' using 1:2 w l ls 1 notitle, \
      'notebooks/results/figure_data/Figure2/KT2440_pSeva221_Phif_p2_scatter.dat' using 2:3 ls 4 notitle,\
      'notebooks/results/figure_data/Figure2/KT2440_pSeva221_Phif_p2_curve.dat' using 1:2 w l ls 3 notitle
 
 set lmargin at screen 0.05+0.25+0.25+0.25
 set title 'KT2440 pSeva251'
 plot \
-     'notebooks/results/figure_data/Figure2/KT2440_pSeva251_Litr_l1_scatter.dat' using 2:3 ls 2 notitle,\
-     'notebooks/results/figure_data/Figure2/KT2440_pSeva251_Litr_l1_curve.dat' using 1:2 w l ls 1 notitle, \
+     'notebooks/results/figure_data/Figure2/KT2440_pSeva251_Psra_r1_scatter.dat' using 2:3 ls 2 notitle,\
+     'notebooks/results/figure_data/Figure2/KT2440_pSeva251_Psra_r1_curve.dat' using 1:2 w l ls 1 notitle, \
      'notebooks/results/figure_data/Figure2/KT2440_pSeva251_Phif_p2_scatter.dat' using 2:3 ls 4 notitle,\
      'notebooks/results/figure_data/Figure2/KT2440_pSeva251_Phif_p2_curve.dat' using 1:2 w l ls 3 notitle
 
