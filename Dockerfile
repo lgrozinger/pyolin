@@ -1,4 +1,4 @@
-FROM debian:stretch
+FROM debian:buster
 
 USER root
 
@@ -7,9 +7,17 @@ RUN apt-get update && \
     ln -s $(which python3) /usr/bin/python && \
     ln -s $(which pip3) /usr/bin/pip
 
-RUN python -m pip install --upgrade pip && python -m pip install jupyter
+RUN python -m pip install --upgrade pip && \
+    python -m pip install jupyter \
+                          pandas \
+                          scipy \
+                          matplotlib \
+                          similaritymeasures \
+                          seaborn
+
+RUN apt-get install -y gnuplot \
+                       texlive-base \
+                       texlive-fonts-recommended \
+                       imagemagick
 
 WORKDIR /pyolin
-COPY . /pyolin
-
-CMD python -m pip install -r requirements.txt ; python -m jupyter notebook --ip 0.0.0.0 --allow-root --no-browser

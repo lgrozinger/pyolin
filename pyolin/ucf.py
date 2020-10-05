@@ -132,5 +132,3 @@ class UCFGate(Gate):
             ys.append(median)
 
         return ys
-
-

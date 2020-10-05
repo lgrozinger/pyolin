@@ -6,13 +6,36 @@ import pyolin.figures as figures
 
 import pandas
 import os
+import sys
+from shutil import which
 
 from pyolin.dataframe import GateData
 from pyolin.analysis import filter_valid
 
 fig_dir = 'notebooks/results/figure_data'
 
+
+def plot_system_call(filepath, *gnuplotargs):
+    minus_extension = filepath.rpartition('.')[0]
+    directory = filepath.rpartition('/')[0]
+    os.system(f"gnuplot -c {filepath} {' '.join(gnuplotargs)}")
+    os.system(f"latex -output-directory={directory} {minus_extension}.tex")
+    os.system(f"dvips -E -o {minus_extension}.ps {minus_extension}.dvi")
+
+    
 if __name__ == '__main__':
+    # check the required utilities are available
+    gnuplot = which("gnuplot")
+    latex = which("latex")
+    dvips = which("dvips")
+    if latex is None or gnuplot is None or dvips is None:
+        print("ERR: Plotting requires gnuplot, latex and dvips are installed.")
+        sys.exit(1)
+
+    convert = which("convert")
+    if convert is None:
+        print("WARN: convert not found, skipping conversion to png.")
+
     # reading and renaming some columns
     raw = pandas.read_csv('cyto2func/standardised_cheeky.csv')
     raw = raw.rename(columns={'rrpu': 'decomp_flor'})

@@ -7,7 +7,7 @@ def optim_matrix(A, B):
 
     X = A.points.T
     Y = B.points.T
-    bounds = [(-100.0, 100.0)] * 4
+    bounds = [(-999999.0, 999999.0)] * 4
 
     def f(p):
         Z = numpy.array(p)

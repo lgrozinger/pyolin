@@ -1,3 +1,5 @@
+import pandas
+
 from pyolin.gate import Gate
 
 
@@ -11,8 +13,15 @@ def remove_emptys(df):
 
 
 class GateData:
-    def __init__(self, pandas_dataframe):
+    def __init__(self, pandas_dataframe, x='iptg', y='rrpu'):
         self.df = remove_emptys(pandas_dataframe)
+        self.defaultx = x
+        self.defaulty = y
+
+    @classmethod
+    def from_csv(cls, filepath):
+        raw = pandas.read_csv(filepath)
+        return cls(raw)
 
     def __getitem__(self, key):
         if isinstance(key, slice):
