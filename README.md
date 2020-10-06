@@ -44,3 +44,7 @@ after `cd pyolin`, running `python3 produce_figures.py full-update` will do the 
 The code can also be used as a python package. See https://github.com/lgrozinger/pyolin/blob/master/notebooks/example.ipynb for example usage.
 
 ### Data Files
+The preprocessed cytometry data is located at  https://github.com/lgrozinger/pyolin/blob/master/standardised_cheeky.csv . This data was processed using the FlowScatt package https://github.com/rstoof/FlowScatt . The analysis in the paper can be performed on other datasets, providing it follows the format in the example dataset, by modifying the variable `CYTODATA` in `__init__.py` to point at the filename of the data to be analysed.
+
+## SBOL Files
+SBOL files for the constructs used in the study are found in the `results/sbol/` directory with the extension `.xml`
