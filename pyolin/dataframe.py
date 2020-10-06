@@ -123,5 +123,3 @@ class GateData:
     @property
     def contexts(self):
         return [name for name, _ in self.df.groupby(['strain', 'backbone'])]
-
-    def to_ucf(self, filename
