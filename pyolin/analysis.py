@@ -90,6 +90,14 @@ def predict(reference_gate, leash_length, ymin_ratio, ymax_ratio):
     pass
 
 
+def number_context_jumps(gates):
+    jumps = 0
+    for a, b in zip(gates, gates[1:]):
+        if not a.backbone == b.backbone or not a.strain == b.strain:
+            jumps += 1
+    return jumps
+
+
 def dfs_max_path(adj_matrix, start, disallowed, visited, gates, paths):
     if start not in disallowed:
         outgoings = {j for (j, t) in enumerate(adj_matrix[start, :]) if t}
@@ -97,41 +105,49 @@ def dfs_max_path(adj_matrix, start, disallowed, visited, gates, paths):
         if outgoings:
             gate = gates[start]
             def are_similar(A, B):
-                return A.repressor == B.repressor
+                return A.repressor == B.repressor and A.strain == B.strain and A.backbone == B.backbone
             similar = {i for (i, g) in enumerate(gates) if are_similar(gate, g)}
             similar = similar | disallowed
             for conn in outgoings:
                 dfs_max_path(adj_matrix, conn, similar, visited + [start], gates, paths)
         else:
-            paths[len(visited) + 1] = [gates[i].name for i in visited + [start]]
+            jumps = number_context_jumps([gates[i] for i in visited + [start]])
+            length = len(visited) + 1
+            if length in paths:
+                p, j = paths[length]
+                if j > jumps:
+                    paths[length] = ([gates[i].name for i in visited + [start]], jumps)
+            else:
+                paths[length] = ([gates[i].name for i in visited + [start]], jumps)
 
 
-def dfs_path_collect(adj_matrix, i, disallowed, paths, gates, edges):
-    if i not in disallowed:
-        outgoings = {j for (j, t) in enumerate(adj_matrix[i, :]) if t}
-        outgoings = outgoings - disallowed
+# def dfs_path_collect(adj_matrix, start, disallowed, visited, gates, paths):
+#     if start not in disallowed:
+#         outgoings = {j for (j, t) in enumerate(adj_matrix[start, :]) if t}
+#         outgoings = outgoings - disallowed
+#         if outgoings:
+#             gate = gates[start]
+#             def are_similar(A, B):
+#                 return A.repressor == B.repressor
+#             similar = {i for (i, g) in enumerate(gates) if are_similar(gate, g)}
+#             similar = similar | disallowed
+#             for conn in outgoings:
+#                 dfs_max_path(adj_matrix, conn, similar, visited + [start], gates, paths)
+#         elif len(visited) + 1 in paths:
+#             paths[len(visited) + 1].append([gates[i].name for i in visited + [start]])
+#         else:
+#             paths[len(visited) + 1] = [[gates[i].name for i in visited + [start]]]
 
-        if outgoings:
-            gate = gates[i]
-            similar = {i for i, g in enumerate(gates) if gate.repressor == g.repressor}
-            for j in outgoings:
-                dfs_path_collect(adj_matrix, j, similar | disallowed, paths, gates, edges + 1)
-        else:
-            try:
-                paths[edges] += 1
-            except KeyError:
-                paths[edges] = 1
 
+# def max_named_paths(gates):
+#     results = {}
+#     edges = numpy.array(compatibility_table(gates), dtype=numpy.bool)
+#     for i, gate in enumerate(gates):
+#         paths = {}
+#         dfs_max_path(edges, i, set(), [], gates, paths)
+#         results[gate.name] = paths
 
-def max_named_paths(gates):
-    results = {}
-    edges = numpy.array(compatibility_table(gates), dtype=numpy.bool)
-    for i, gate in enumerate(gates):
-        paths = {}
-        dfs_max_path(edges, i, set(), [], gates, paths)
-        results[gate.name] = paths
-
-    return results
+#     return results
 
 
 def all_paths(gates):

@@ -1,7 +1,5 @@
-<<<<<<< HEAD
 from pyolin import FIGDIR
 from pyolin import RESDIR
-import numpy
 from pyolin.analysis import similarity_table
 
 
@@ -24,22 +22,6 @@ def figure2(gateA_list, gateB_list):
 
             print(f"'{b_scatter}' u 2:3 ls 3 notitle, \\", file=f)
             print(f"'{b_curve}' u 1:2 w l ls 4 notitle", file=f)
-=======
-import numpy
-from pyolin.gate import Gate
-from pyolin.linear_transform import linear_transform_prediction
-from pyolin.analysis import similarity_table
-from pyolin.analysis import reduced_compatibility_table
-from pyolin.analysis import score_table
-
-
-def figure2(gateA_list, gateB_list, directory):
-    for a, b in zip(gateA_list, gateB_list):
-        assert a.backbone == b.backbone and a.strain == b.strain
-
-        a_scatter, a_curve = a.to_gnuplot(directory)
-        b_scatter, b_curve = b.to_gnuplot(directory)
->>>>>>> d24d2f9d92c89a0a1041c93f2c273a166c89e461
 
 
 def gate_drop_name(gate_namestring):

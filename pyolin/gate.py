@@ -104,6 +104,14 @@ class Gate:
         return self.name.split('_')[1]
 
     @property
+    def repressor(self):
+        return self.name.split('_')[2]
+
+    @property
+    def rbs(self):
+        return self.cargo.split('_')[-1]
+
+    @property
     def cargo(self):
         return '_'.join(self.name.split('_')[-2:])
 
@@ -123,9 +131,6 @@ class Gate:
     def n(self):
         return self.params["n"]
 
-    @property
-    def repressor(self):
-        return self.name.split('_')[2]
 
     @property
     def params(self):
@@ -228,12 +233,12 @@ class Gate:
         return figure, axes
 
     def is_compatible_with(self, other, offset=0.0):
-        this_gate = self.name.split('_')[2]
-        that_gate = other.name.split('_')[2]
         return (utils.score(self, other, offset=offset) > 0
                 and self.has_valid_thresholds
                 and other.has_valid_thresholds
-                and this_gate != that_gate)
+                and (not (self.repressor == other.repressor and
+                          self.backbone == other.backbone and
+                          self.strain == other.strain)))
 
     def numpy_curve(self, normal=True):
         if normal:

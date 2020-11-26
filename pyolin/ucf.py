@@ -1,134 +1,175 @@
+import os
+import sys
+from pathlib import Path
+
+pkg_path = os.path.abspath(str(Path(__file__).parent.parent))
+sys.path.insert(0, pkg_path)
+
 import json
 import numpy
 import wquantiles
-import matplotlib.pyplot as plt
 from io import StringIO
-
-from . import utils
-from .gate import Gate
-
-
-def from_ucf(filename):
-    ucf = None
-    with open(filename, encoding='utf-8') as f:
-        io = StringIO(f.read())
-        ucf = json.load(io)
-
-    return ucf
-
-def collections(ucf, name):
-    results = []
-    for section in ucf:
-        if "collection" in section.keys() and section["collection"] == name:
-            results.append(section)
-
-    return results
-
-def params(ucf, name):
-    responses = collections(ucf, "response_functions")
-    gates = list(filter(lambda x: x["gate_name"] == name, responses))
-    parameters = gates[0]["parameters"]
-
-    return {p["name"]: p["value"] for p in parameters}
-
-def cytometry(ucf, name):
-    cytometries = collections(ucf, "gate_cytometry")
-    gates = list(filter(lambda x: x["gate_name"] == name, cytometries))
-
-    return gates[0]
-
-def gate_histogram(ucf, name, induction):
-    data = cytometry(ucf, name)["cytometry_data"][induction]
-
-    bins = data["output_bins"]
-    probability = data["output_counts"]
-
-    return numpy.array(bins), numpy.array(probability)
-
-def histogram_induction(ucf, name, induction):
-    return cytometry(ucf, name)["cytometry_data"][induction]["input"]
-
-def gate_median(ucf, name, induction):
-    bins, probability = gate_histogram(ucf, name, induction)
-    return wquantiles.median(bins, probability)
-
-def gate_medians(ucf, name):
-    cyto_data = cytometry(ucf, name)["cytometry_data"]
-    medians = []
-    for i, _ in enumerate(cyto_data):
-        medians.append(gate_median(ucf, name, i))
-
-    return medians
-
-def all_gates(ucf):
-    gates = collections(ucf, "gates")
-    names = []
-    for gate in gates:
-        names.append(gate["gate_name"])
-
-    return names
+import datetime
+from gate import Gate
+from dataframe import GateData
+import pandas
+import argparse
 
 
 class UCF:
-    def __init__(self, ucf_filename=None):
-        if ucf_filename is not None:
-            self._data = from_ucf(ucf_filename)
+    def __init__(self, **kwargs):
+        if "file" in kwargs:
+            io = StringIO(kwargs["file"].read())
+            self.data = json.load(io)
         else:
-            self._data = {}
+            self.data = []
+
+    def __str__(self):
+        if not list(self.getcollections("header")):
+            self.data.append(self.header)
+
+        if not list(self.getcollections("measurement_std")):
+            self.data.append(self.measurementstd)
+
+        if not list(self.getcollections("logic_constraints")):
+            self.data.append(self.logicconstraints)
+
+        return json.dumps(self.data)
+
+    def getcollections(self, collectionname):
+        return (c for c in self.data
+                if "collection" in c
+                and c["collection"] == collectionname)
+
+    def getgates(self):
+        return self.getcollections("gates")
+
+    def getgate(self, gatename):
+        for gate in self.getgates():
+            if gate["name"] == gatename:
+                return gate
+
+        raise KeyError(f"No such gate {gatename} in UCF")
+
+    def addheader(self, **kwargs):
+        header = {"collection": "header",
+                  "date": datetime.datetime.today().strftime("%d-%m-%Y")}
+
+        version = kwargs.get("version", "1")
+        organism = kwargs.get("organism", "")
+        genome = kwargs.get("genome", "")
+        media = kwargs.get("media", "")
+        temperature = kwargs.get("temperature", "37")
+        growth = kwargs.get("growth", "")
+
+        header["version"] = version
+        header["organism"] = organism
+        header["genome"] = genome
+        header["media"] = media
+        header["temperature"] = temperature
+        header["growth"] = growth
+
+        self.data.append(header)
+
+    def addmeasurementstd(self, **kwargs):
+        kwargs["collection"] = "measurement_std"
+        self.data.append(kwargs)
+
+    def addlogicconstraints(self, **kwargs):
+        kwargs["collection"] = "logic_constraints"
+        self.data.append(kwargs)
+
+    def addgate(self, gate):
+        gates = {"collection": "gates", "gate_type": "NOR", "system": "TetR"}
+        gates["group_name"] = gate.repressor
+        gates["gate_name"] = gate.name
+        self.data.append(gates)
+
+        gate_parts = {"collection": "gate_parts", "gate_name": gate.name}
+        gate_parts["promoter"] = f"p{gate.repressor}"
+        gate_parts["transcription_units"] = [[gate.rbs, gate.repressor]]
+        self.data.append(gate_parts)
+
+        response_functions = {"collection": "response_functions"}
+        response_functions["gate_name"] = gate.name
+        response_functions["variables"] = "x"
+        response_functions["equations"] = "ymin+(ymax-ymin)/(1.0+(x/K)^n)"
+        response_functions["parameters"] = [{"name": k, "value": v} for k, v in gate.params.items()]
+        self.data.append(response_functions)
+
+        rbs = {"collection": "parts", "type": "rbs", "name": gate.rbs}
+        rbs["dnasequence"] = "ACTG"
+        self.data.append(rbs)
+
+        cds = {"collection": "parts", "type": "cds", "name": gate.repressor}
+        cds["dnasequence"] = "ACTG"
+        self.data.append(cds)
 
     @property
-    def names(self):
-        return all_gates(self._data)
-
-    def collections(self, collection_name):
-        return collections(self._data, collection_name)
-
-    def __getitem__(self, key):
-        gate = None
-        if isinstance(key, str):
-            gate = UCFGate(self._data, key)
-        else:
-            raise TypeError("Provide gate name as string.")
-
-        return gate
-
-    def __contains__(self, item):
-        return item in self.names
-
-    def add_collection(self, name, **kwargs):
-        kwargs["collection"] = name
-        self._data.append(kwargs)
-
-
-class UCFGate(Gate):
-
-    def __init__(self, ucf, gate_name):
-        assert gate_name in all_gates(ucf)
-        self._name = gate_name
-        self._params = params(ucf, gate_name)
-        self._cytodata = cytometry(ucf, gate_name)["cytometry_data"]
-        self._upper_t = 2
-        self._lower_t = 2
+    def header(self):
+        try:
+            return next(self.getcollections("header"))
+        except StopIteration:
+            exampleucf = Path(__file__).parent.parent / "ucf" / "Eco1C1G1T1.UCF.json"
+            with open(exampleucf) as eg:
+                return next(UCF(file=eg).getcollections("header"))
 
     @property
-    def params(self):
-        return self._params
+    def measurementstd(self):
+        try:
+            return next(self.getcollections("measurement_std"))
+        except StopIteration:
+            exampleucf = Path(__file__).parent.parent / "ucf" / "Eco1C1G1T1.UCF.json"
+            with open(exampleucf) as eg:
+                return next(UCF(file=eg).getcollections("measurement_std"))
 
     @property
-    def xs(self):
-        xs = []
-        for i, c in enumerate(self._cytodata):
-            xs.append(c["input"])
+    def logicconstraints(self):
+        try:
+            return next(self.getcollections("logic_constraints"))
+        except StopIteration:
+            numgates = len(list(self.getgates()))
+            return {"collection": "logic_constraints",
+                    "available_gates": [
+                        {"type": "NOR",
+                         "max_instances": str(numgates)},
+                        {"type": "NOT",
+                         "max_instances": str(numgates)}]}
 
-        return xs
 
-    @property
-    def ys(self):
-        ys = []
-        for i, c in enumerate(self._cytodata):
-            bins = numpy.array(c["output_bins"])
-            probabilities = numpy.array(c["output_counts"])
-            median = wquantiles.median(bins, probabilities)
-            ys.append(median)
+description = """
+Generate a minimal UCF file, compatible with Cello, for a collection of gates.
 
-        return ys
+Some metadata may be missing or incorrect, for example, sequence
+data. The use of the generated UCF file is therefore restricted to the
+design stage, and cannot be used for the build stage. This may be
+updated in the future.  """
+
+
+parser = argparse.ArgumentParser(description=description,
+                                 prog="UCF file generate")
+parser.add_argument("filepath", type=str, metavar="FILEPATH",
+                    help="a CSV file, such as generated by FlowScatt, containing the gate data")
+parser.add_argument("-o", "--outpath", type=str, nargs='?', metavar="FILEPATH",
+                    help="the file path to write the UCF to. If omitted output is written to stdout",
+                    default="")
+
+
+if __name__ == '__main__':
+    args = parser.parse_args()
+    FILEPATH = args.filepath
+    OUTPATH = args.outpath
+    dataframe = pandas.read_csv(FILEPATH)
+    dataframe = dataframe.rename(columns={'rrpu': 'decomp_flor'})
+    dataframe = dataframe.rename(columns={'newstandard': 'rrpu'})
+    data = GateData(dataframe)
+
+    u = UCF()
+    for gate in data:
+        u.addgate(gate)
+
+    if OUTPATH:
+        with open(OUTPATH, "w") as outfile:
+            outfile.write(str(u))
+    else:
+        print(u)
